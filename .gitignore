@@ -1,0 +1,12 @@
+#Ignore folder named vendor
+
+/node_modules/
+/vendor/
+.phpintel
+public/js/
+js/chunks/
+main.js
+manifest.js
+mix-manifest.json
+public/dist
+
