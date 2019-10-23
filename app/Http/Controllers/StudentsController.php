@@ -46,6 +46,11 @@ class StudentsController extends Controller
         if($request->get('image')) {
           $image = $request->get('image');
           $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+
+        if (!file_exists(public_path('images/'))) {
+            mkdir(public_path('images/'), 666, true);
+        }
+
           \Image::make($request->get('image'))->save(public_path('images/').$name);
         }
 
@@ -85,7 +90,7 @@ class StudentsController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return response()->json($student, 200);
     }
 
     /**
@@ -97,7 +102,7 @@ class StudentsController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+
     }
 
     /**

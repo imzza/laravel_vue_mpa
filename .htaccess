@@ -44,4 +44,4 @@ RewriteCond %{REQUEST_URI} !^/public/
 
 RewriteRule ^(css|js|images)/(.*)$ public/$1/$2 [L,NC]
 
-RewriteBase /mpa_kit/
+#RewriteBase /mpa_kit/

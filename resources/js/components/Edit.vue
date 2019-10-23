@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-10">
-                <p>Add Record</p>
+                <p>Update Record</p>
                 <form @submit.prevent="onSubmit">
                     <div class="form-group">
                         <label for="email" class="control-label">Email:</label>
@@ -112,11 +112,13 @@
 import User from '~/api/user';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
-Vue.use(VeeValidate);
+// Vue.use(VeeValidate);
+
+Vue.use(VeeValidate, {fieldsBagName: 'formFields'});
 
 export default {
 
-  name: 'Test',
+  name: 'Add',
 
   data () {
     return {

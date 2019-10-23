@@ -21,7 +21,7 @@
 import VueRouter from 'vue-router';
 
 export default {
-  name: 'MainComponent',
+  name: 'Index',
   props:['sdata'],
   data () {
     return {
@@ -36,7 +36,7 @@ export default {
             {
                 path: '/index',
                 name: 'index',
-                component: () => import('~/components/SampleComponent.vue'),
+                component: () => import('~/components/Index.vue'),
             },
             {
                 path: '/',
@@ -45,19 +45,14 @@ export default {
             {
                 path: '/add',
                 name: 'add',
-                component: () => import('~/components/Test.vue'),
+                component: () => import('~/components/Add.vue'),
             },
-            // {
-            //     path: '/add-item',
-            //     name: 'add-item',
-            //     component: MenuItem
-            // },
-            // {
-            //     path: '/edit-item/:id',
-            //     name: 'edit-item',
-            //     component: MenuItem,
-            //     props: true
-            // },
+            {
+                path: '/edit/:id',
+                name: 'edit-item',
+                component: () => import('~/components/Edit.vue'),
+                props: true
+            },
             {
                 path: '*',
                 redirect: '/'

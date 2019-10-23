@@ -5,7 +5,7 @@ let getUrl = window.location;
 //remove last section for running project as virtual host
 let baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-window.PREFIX = 'mpa_kit';
+window.PREFIX = 'laravel_vue_mpa';
 
 window.SUB_URL=baseUrl;
 window.BASE_URL = baseUrl;

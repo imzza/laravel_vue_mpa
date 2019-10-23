@@ -71,7 +71,7 @@ mix.webpackConfig({
     }
   },
   output: {
-    publicPath:'/mpa_kit/',
+    publicPath:'/laravel_vue_mpa/',
     // chunkFilename: mix.inProduction() ? 'js/chunks/[name].[chunkhash].js' : 'js/chunks/[name].js'
     // filename: 'public/dist/js/[name].js',
     chunkFilename: 'public/dist/js/[name].[chunkhash].js',

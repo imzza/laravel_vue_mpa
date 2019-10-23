@@ -23,13 +23,6 @@ Now install laravel passoprt by running **php artisan passport:install** this wi
 #Laravel Passport Keys
 Run php artisan passport:install to generate passport keys
 
-#### Client ID: 1
-Client secret: SC7botLCUJ4sdCZxNALWw9qaZ9G01A3gfvBAN52r
-
-#### Client ID: 2
-Client secret: M7YOwhV1HTCZ37ib64SvmL1JYmG1ZoVbcAkUKD2f
-
-
 
 ### Run Application
 
@@ -39,3 +32,61 @@ Now run **npm run watch** for compiling vuejs files and visite your broser and c
 ## License
 
 The Starter Kit is Designed and developed by Techleadz
+
+
+Package Control Messages
+========================
+
+GitGutter
+---------
+
+  1.11.0:
+  =======
+  
+    This release drops support for ST2 and ST3 before build 3176.
+  
+    The release 1.10.3 was archived and will be available for older releases
+    of Sublime Text, but it won't receive any updates anymore.
+  
+    The main functional change which comes with this release is a dedicated
+    worker thread to run all git commands in. This change makes sure not to
+    cause GUI locks if a git command takes a little longer.
+  
+    ---------------------------------------------------------------------------
+  
+     C H A N G E L O G
+  
+    Enhancement:
+     - Use dedicated worker thread for async tasks
+     - Better submodule reloading
+  
+    Internal:
+     - Drop support for Sublime Text ST2 and ST3 pre-releases
+  
+  
+  💛 Git Gutter? Want to support development?
+  
+  I've teamed up with Wes Bos to offer the following discounts:
+  
+  +------------------------------------------------+
+  |                                                |
+  |   Use the coupon code GITGUTTER for $10 off    |
+  |                                                |
+  +------------------------------------------------+
+  
+  🏅 ⭐ ES6 ⭐
+  
+  👉 ES6.io/friend/GITGUTTER
+  
+  🏅 ⭐ Sublime Text Book ⭐
+  
+  👉 SublimeTextBook.com/friend/GITGUTTER
+  
+  🏅 ⭐ React For Beginners ⭐
+  
+  👉 ReactForBeginners.com/friend/GITGUTTER
+  
+  
+  Join 15,000 other developers already learning with Wes Bos.
+  
+  These are fantastic resources - 100% money back guarantee! 🌟
