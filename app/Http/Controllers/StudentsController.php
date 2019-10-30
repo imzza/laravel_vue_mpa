@@ -13,9 +13,16 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return  response()->json(StudentResource::collection(Student::all()), 200);
+
+
+        $sortRules = $request->input('sort');
+        $limit = $request->input('per_page');
+        list($field, $dir) = explode('|', $sortRules);
+        return response()->json(Student::orderBy($field, $dir)->paginate($limit), 200);
+
+        // return  response()->json(StudentResource::collection(Student::all()), 200);
     }
 
     /**
