@@ -76,12 +76,12 @@ export default {
                     sortField: 'zip',
                 },
                 {
-                  name: 'created_at',
-                  title: 'Created',
-                  sortField: 'created_at',
-                  titleClass: 'text-center',
-                  dataClass: 'text-center',
-                  callback: 'formatDate|DD-MM-YYYY'
+                    name: 'created_at',
+                    title: 'Created',
+                    sortField: 'created_at',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center',
+                    callback: 'formatDate|DD-MM-YYYY'
                 },
                 // {
                 //   name: 'nickname',
@@ -89,11 +89,11 @@ export default {
                 //   callback: 'allcap'
                 // },
                 {
-                  name: 'gender',
-                  sortField: 'gender',
-                  titleClass: 'text-center',
-                  dataClass: 'text-center',
-                  callback: 'genderLabel'
+                    name: 'gender',
+                    sortField: 'gender',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center',
+                    callback: 'genderLabel'
                 },
                 // {
                 //   name: 'salary',
@@ -103,10 +103,10 @@ export default {
                 //   callback: 'formatNumber'
                 // },
                 {
-                  name: '__component:custom-actions',
-                  title: 'Actions',
-                  titleClass: 'text-center',
-                  dataClass: 'text-center'
+                    name: '__component:custom-actions',
+                    title: 'Actions',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center'
                 }
             ],
             css: {
@@ -197,14 +197,12 @@ export default {
             Vue.nextTick(() => this.$refs.vuetable.refresh())
         }
     },
-    computed:{
-        ApiUrl(){
+    computed: {
+        ApiUrl() {
             return API_URL;
         }
     },
 }
-
-
 
 </script>
 <style>

@@ -14,17 +14,16 @@
                         <input type="password" name="password" id="password" class="form-control form-control-lg" v-validate="'required|min:3'" v-model="model.password" :class="{'is-invalid': errors.has('password') }">
                         <span class="help text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</span>
                     </div>
-
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                          <label for="first_name">First Name</label>
-                          <input type="text" class="form-control form-control-lg" data-vv-as="First Name" name="first_name" id="first_name" placeholder="First Name" v-model="model.first_name" :class="{'is-invalid': errors.has('first_name') }" v-validate="'required'">
-                          <span class="help text-danger" v-if="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control form-control-lg" data-vv-as="First Name" name="first_name" id="first_name" placeholder="First Name" v-model="model.first_name" :class="{'is-invalid': errors.has('first_name') }" v-validate="'required'">
+                            <span class="help text-danger" v-if="errors.has('first_name')">{{ errors.first('first_name') }}</span>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="last_name">last Name</label>
-                          <input type="text" class="form-control form-control-lg" data-vv-as="Last Name" name="last_name" id="last_name" placeholder="Last Name" v-model="model.last_name" :class="{'is-invalid': errors.has('last_name') }" v-validate="'required'">
-                          <span class="help text-danger" v-if="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+                            <label for="last_name">last Name</label>
+                            <input type="text" class="form-control form-control-lg" data-vv-as="Last Name" name="last_name" id="last_name" placeholder="Last Name" v-model="model.last_name" :class="{'is-invalid': errors.has('last_name') }" v-validate="'required'">
+                            <span class="help text-danger" v-if="errors.has('last_name')">{{ errors.first('last_name') }}</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -39,46 +38,42 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                          <label for="city">City</label>
-                          <input type="text" class="form-control form-control-lg" id="city" name="city" v-model="model.city" :class="{ 'is-invalid': errors.has('city') }" v-validate="'required'">
-                          <span class="help text-danger" v-if="errors.has('city')">{{ errors.first('city') }}</span>
+                            <label for="city">City</label>
+                            <input type="text" class="form-control form-control-lg" id="city" name="city" v-model="model.city" :class="{ 'is-invalid': errors.has('city') }" v-validate="'required'">
+                            <span class="help text-danger" v-if="errors.has('city')">{{ errors.first('city') }}</span>
                         </div>
                         <div class="form-group col-md-4">
-                          <label for="state">State</label>
-                          <select id="state" class="form-control form-control-lg" name="state" v-model="model.state" :class="{ 'is-invalid': errors.has('state') }" v-validate="'required'">
-                            <option v-for="(st,ind) in states" :key="st.value" :value="st.value">{{ st.name }}</option>
-                          </select>
-                          <span class="help text-danger" v-if="errors.has('state')">{{ errors.first('state') }}</span>
+                            <label for="state">State</label>
+                            <select id="state" class="form-control form-control-lg" name="state" v-model="model.state" :class="{ 'is-invalid': errors.has('state') }" v-validate="'required'">
+                                <option v-for="(st,ind) in states" :key="st.value" :value="st.value">{{ st.name }}</option>
+                            </select>
+                            <span class="help text-danger" v-if="errors.has('state')">{{ errors.first('state') }}</span>
                         </div>
                         <div class="form-group col-md-2">
-                          <label for="zip">Zip</label>
-                          <input type="text" class="form-control form-control-lg" id="zip" name="zip" v-model="model.zip" :class="{ 'is-invalid': errors.has('zip') }" v-validate="'required'">
-                         <span class="help text-danger" v-if="errors.has('zip')">{{ errors.first('zip') }}</span>
+                            <label for="zip">Zip</label>
+                            <input type="text" class="form-control form-control-lg" id="zip" name="zip" v-model="model.zip" :class="{ 'is-invalid': errors.has('zip') }" v-validate="'required'">
+                            <span class="help text-danger" v-if="errors.has('zip')">{{ errors.first('zip') }}</span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <!-- <label for="chk"></label> -->
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input"  name ="offers" id="offers" v-model="model.offers" :true-value="1">
-                          <label class="custom-control-label" for="offers">Send Me offers</label>
+                            <input type="checkbox" class="custom-control-input" name="offers" id="offers" v-model="model.offers" :true-value="1">
+                            <label class="custom-control-label" for="offers">Send Me offers</label>
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <div class="custom-control custom-radio">
-                          <input type="radio" id="male" name="gender" class="custom-control-input" :value="'male'" v-model="model.gender" v-validate="'required'">
-                          <label class="custom-control-label" for="male">Male</label>
+                            <input type="radio" id="male" name="gender" class="custom-control-input" :value="'male'" v-model="model.gender" v-validate="'required'">
+                            <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio">
-                          <input type="radio" id="female" name="gender" class="custom-control-input" v-model="model.gender" v-validate="'required'" :value="'female'">
-                          <label class="custom-control-label" for="female">Female</label>
+                            <input type="radio" id="female" name="gender" class="custom-control-input" v-model="model.gender" v-validate="'required'" :value="'female'">
+                            <label class="custom-control-label" for="female">Female</label>
                         </div>
                         <span class="help text-danger" v-if="errors.has('gender')">{{ errors.first('gender') }}</span>
                     </div>
-
                     <div class="form-group">
                         <label for="image">Profile Image</label>
                         <div class="custom-file">
@@ -87,15 +82,11 @@
                             <span class="help text-danger" v-if="errors.has('image')">{{ errors.first('image') }}</span>
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <label for="about">Example textarea</label>
                         <textarea class="form-control form-control-lg" id="about" name="about" rows="4" v-model="model.about" :class="{ 'is-invalid': errors.has('about') }" v-validate="'required|min:100'"></textarea>
                         <span class="help text-danger" v-if="errors.has('about')">{{ errors.first('about') }}</span>
                     </div>
-
-
                     <div class="form-group">
                         <v-button :loading="busy">
                             Submit
@@ -106,45 +97,43 @@
         </div>
     </div>
 </template>
-
 <script>
-
 import User from '~/api/user';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
 
-Vue.use(VeeValidate, {fieldsBagName: 'formFields'});
+Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 
 export default {
 
-  name: 'Add',
+    name: 'Add',
 
-  data () {
-    return {
-        busy: false,
-        states: [
-            { name: 'Choose...', value: '' },
-            { name: 'Los Angles', value: 'LA' },
-            { name: 'New Yark', value: 'NY' },
-            { name: 'Paris', value: 'PA' },
-        ],
-        model:{
-            image: '',
-        },
-        bimage: '',
-    }
-  },
-  mounted(){
+    data() {
+        return {
+            busy: false,
+            states: [
+                { name: 'Choose...', value: '' },
+                { name: 'Los Angles', value: 'LA' },
+                { name: 'New Yark', value: 'NY' },
+                { name: 'Paris', value: 'PA' },
+            ],
+            model: {
+                image: '',
+            },
+            bimage: '',
+        }
+    },
+    mounted() {
 
-    // User.all(data => {
-    //     console.log(data);
-    // }, err =>{
-    //     console.log(err);
-    // });
+        // User.all(data => {
+        //     console.log(data);
+        // }, err =>{
+        //     console.log(err);
+        // });
 
-  },
-  methods:{
+    },
+    methods: {
         readFile(e) {
             let files = e.target.files || e.dataTransfer.files;
             if (!files.length)
@@ -161,7 +150,7 @@ export default {
             reader.readAsDataURL(file);
         },
 
-        onSubmit(){
+        onSubmit() {
             let self = this;
             self.$validator.validateAll().then(result => {
                 if (result) {
@@ -169,9 +158,9 @@ export default {
                     console.log(self.model);
                     User.save(self.model, data => {
                         self.busy = false;
-                        self.$router.push({name: 'index'});
+                        self.$router.push({ name: 'index' });
                         Notify.success('Oh No Scuuess ...');
-                    }, err =>{
+                    }, err => {
                         self.busy = false;
                         console.log(err);
                         this.$setErrorsFromResponse(err);
@@ -179,12 +168,9 @@ export default {
                 }
             });
         },
-  }
+    }
 }
-</script>
 
+</script>
 <style lang="css" scoped>
 </style>
-
-
-
