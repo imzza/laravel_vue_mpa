@@ -5,7 +5,7 @@
           <label>Search for:</label>
           <input type="text" v-model="filterText" class="form-control" @keyup.enter="doFilter" placeholder="name, nickname, or email">
           <button class="btn btn-primary" @click.prevent="doFilter">Go</button>
-          <button class="btn" @click.prevent="resetFilter">Reset</button>
+          <button class="btn btn-danger" @click.prevent="resetFilter">Reset</button>
         </div>
       </form>
     </div>
