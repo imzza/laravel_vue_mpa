@@ -1,8 +1,8 @@
   <template>
     <div class="custom-actions">
-      <button class="btn btn-primary btn-sm" @click="itemAction('view-item', rowData, rowIndex)"><i class="fa fa-eye"></i></button>
-      <button class="btn btn-primary btn-sm" @click="itemAction('edit-item', rowData, rowIndex)"><i class="fa fa-pencil"></i></button>
-      <button class="btn btn-primary btn-sm" @click="itemAction('delete-item', rowData, rowIndex)"><i class="fa fa-trash"></i></button>
+      <button class="btn btn-primary btn-sm" @click="itemAction('view', rowData, rowIndex)"><i class="fa fa-eye"></i></button>
+      <button class="btn btn-primary btn-sm" @click="itemAction('edit', rowData, rowIndex)"><i class="fa fa-pencil"></i></button>
+      <button class="btn btn-primary btn-sm" @click="itemAction('delete', rowData, rowIndex)"><i class="fa fa-trash"></i></button>
     </div>
   </template>
 
