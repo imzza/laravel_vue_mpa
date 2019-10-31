@@ -74,13 +74,13 @@
                         </div>
                         <span class="help text-danger" v-if="errors.has('gender')">{{ errors.first('gender') }}</span>
                     </div>
+                    <div class="image-preview" v-if="model.image!=''">
+                        <img :src="model.image" alt="prfileimage" class="img-thumbnail" height="200px" width="200px">
+                    </div>
                     <div class="form-group">
-                        <label for="image">Profile Image</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input form-control form-control-lg" id="" v-validate="'required|mimes:image/*'" name="image" data-vv-name="image" data-vv-as="image" @change="readFile($event)" :class="{ 'is-invalid': errors.has('image') }">
-                            <label class="custom-file-label" for="image">Choose file...</label>
-                            <span class="help text-danger" v-if="errors.has('image')">{{ errors.first('image') }}</span>
-                        </div>
+                        <label for="exampleFormControlFile1">Profile Image</label>
+                        <input type="file" class="form-control-file form-control form-control-lg" v-validate="'required|mimes:image/*'" name="image" data-vv-name="image" data-vv-as="image" @change="readFile($event)" :class="{ 'is-invalid': errors.has('image') }">
+                        <span class="help text-danger" v-if="errors.has('image')">{{ errors.first('image') }}</span>
                     </div>
                     <div class="form-group">
                         <label for="about">Example textarea</label>

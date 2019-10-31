@@ -1,0 +1,77 @@
+new Vue({
+  el: '.js-instance',
+  name: 'vue-instance',
+
+  data() {
+    return {
+      library: '',
+      sigh: false,
+    };
+  },
+
+  computed: {
+    nameToShort() {
+      return this.library.length && this.library.length < 3;
+    },
+
+    nameOk() {
+      return this.library.length && !this.nameToShort;
+    },
+
+    fieldClasses() {
+      return {
+        'is-ok': this.nameOk,
+        'is-error': this.nameToShort,
+      };
+    },
+  },
+
+  watch: {
+    library() {
+      this.sigh = this.library.toLowerCase().indexOf('react') !== -1;
+    },
+  },
+
+  methods: {
+    alertLibrary() {
+      alert(this.library);
+    },
+  },
+});
+
+
+<div class="container js-instance">
+  <section class="demo-section">
+    <h1>Bindings</h1>
+
+    <label for="library" class="form__label">What's your favourite JS library?</label>
+
+    <!-- using `v-model` to bind input directy to `library` data -->
+    <!-- bind extra classes to the computed `fieldClasses` data -->
+    <input type="text" class="form__field" v-bind:class="{ 'is-ok':nameOk,
+        'is-error': nameToShort }" v-model="library" id="library" placeholder="Library name" />
+
+    <!-- only display if a condition is met -->
+    <div v-if="nameToShort" v-cloak>The name is to short...</div>
+    <div class="sigh" v-if="sigh" v-cloak>This is a VueJS demo, are you sure?!</div>
+
+   <p>
+     <!-- show input -->
+      You typed: {{ library }}  <br />
+
+     <!-- add a click handler -->
+      <button v-on:click="alertLibrary" v-if="library.length">Alert the value</button>
+    </p>
+  </section>
+</div>
+
+<footer class="footer">
+  <a href="https://github.com/vicompany/vuejs-presentation" target="_blank">VueJS presentation (Github)</a>
+  <a href="https://vuejs.org/" title="VueJS homepage" target="_blank" class="footer__link">
+    <img src="https://vuejs.org/images/logo.png" alt="VueJS logo" class="footer__logo" />
+  </a>
+</footer>
+
+
+
+php artisan migrate --path=/database/migrations/my_migration.php

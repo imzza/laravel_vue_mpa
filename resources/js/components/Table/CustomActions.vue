@@ -18,6 +18,13 @@ export default {
     },
     methods: {
         itemAction(action, data, index) {
+            if (action == 'edit') {
+                this.$router.push({path: '/edit/'+data.id});
+            }else if(action == 'delete'){
+                Notify.confirm().then(resp => {
+                    alert('Deleted');
+                });
+            }
             console.log('custom-actions: ' + action, data, index)
         }
     }
@@ -25,12 +32,4 @@ export default {
 
 </script>
 <style>
-.custom-actions button.ui.button {
-    padding: 8px 8px;
-}
-
-.custom-actions button.ui.button>i.icon {
-    margin: auto !important;
-}
-
 </style>

@@ -30,8 +30,4 @@ export default {
 
 </script>
 <style>
-.filter-bar {
-    padding: 10px;
-}
-
 </style>
