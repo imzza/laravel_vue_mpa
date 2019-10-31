@@ -19,13 +19,17 @@ Route::middleware('auth:api')->get('me', function (Request $request) {
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-    Route::post('getToken', 'UserController@getToken');
+    // Route::post('getToken', 'UserController@getToken');
 
 
     Route::apiResource('students', 'StudentsController');
 
 
-
+    Route::get('api/students', 'StudentsController@index');
+    Route::post('api/students', 'StudentsController@store');
+    Route::get('api/students/{student}', 'StudentsController@show');
+    Route::put('api/students/{student}', 'StudentsController@update');
+    Route::delete('api/students/{student}', 'StudentsController@destroy');
 
     // For Api Calls
     // Route::put()
@@ -33,3 +37,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Route::post();
 
 });
+
+
+

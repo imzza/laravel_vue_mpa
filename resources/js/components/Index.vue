@@ -25,6 +25,8 @@ Vue.use(VueEvents)
 Vue.component('custom-actions', CustomActions)
 Vue.component('my-detail-row', DetailRow)
 Vue.component('filter-bar', FilterBar)
+
+import User from '~/api/user.js';
 export default {
     name: 'SampleComponent',
     components: {
@@ -83,11 +85,6 @@ export default {
                     dataClass: 'text-center',
                     callback: 'formatDate|DD-MM-YYYY'
                 },
-                // {
-                //   name: 'nickname',
-                //   sortField: 'nickname',
-                //   callback: 'allcap'
-                // },
                 {
                     name: 'gender',
                     sortField: 'gender',
@@ -95,13 +92,6 @@ export default {
                     dataClass: 'text-center',
                     callback: 'genderLabel'
                 },
-                // {
-                //   name: 'salary',
-                //   sortField: 'salary',
-                //   titleClass: 'text-center',
-                //   dataClass: 'text-right',
-                //   callback: 'formatNumber'
-                // },
                 {
                     name: '__component:custom-actions',
                     title: 'Actions',
@@ -202,8 +192,51 @@ export default {
             return API_URL;
         }
     },
+    created(){
+        EventBus.$on('DELETE_CONTACT', data => {
+            console.log(data);
+            User.delete(data.id, resp => {
+                Notify.success('Deleted successfully');
+                this.$refs.vuetable.refresh();
+            }, err =>{
+                Notify.error('Something went wrong');
+            });
+        });
+    },
+    destroyed(){
+        EventBus.$on('DELETE_CONTACT');
+    }
 }
 
 </script>
 <style>
+.vuetable-empty-result {
+    font-weight: bold;
+}
+.vuetable-pagination {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    justify-content: space-between;
+}
+.pagination-info {
+    font-weight: bold;
+}
+.pagination .btn-nav {
+    width: 30px;
+    height: 35px;
+}
+.pagination .page {
+    cursor: pointer;
+}
+
+.pagination a.btn-nav.disabled {
+    color: lightgray;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: not-allowed;
+    font-weight: bold;
+    color: #000;
+}
 </style>

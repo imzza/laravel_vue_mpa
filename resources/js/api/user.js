@@ -43,6 +43,17 @@ const User = {
             errorCB(err.response.data);
         });
     },
+    update(id, data, cb, errorCB) {
+        axios.put(API_URL+ 'students/'+id, data)
+        .then(resp => {
+            console.log(resp);
+            if (resp.status == 200) {
+                cb(resp.data);
+            }
+        }).catch(err => {
+            errorCB(err.response.data);
+        });
+    },
 
     delete(id, cb, errorCB) {
         axios.delete(API_URL+ 'students/'+id)

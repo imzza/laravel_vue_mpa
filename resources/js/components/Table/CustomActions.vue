@@ -22,7 +22,7 @@ export default {
                 this.$router.push({path: '/edit/'+data.id});
             }else if(action == 'delete'){
                 Notify.confirm().then(resp => {
-                    alert('Deleted');
+                    EventBus.$emit('DELETE_CONTACT', {id: data.id, index: index});
                 });
             }
             console.log('custom-actions: ' + action, data, index)

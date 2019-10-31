@@ -83,12 +83,12 @@
                         </div>
                     </div> -->
 
-                     <div class="image-preview" v-if="model.image!=''">
-                        <img :src="model.image" alt="prfileimage" class="img-thumbnail" height="200px" width="200px">
+                     <div class="image-preview" v-if="model.image_link!=''">
+                        <img :src="model.image_link" alt="prfileimage" class="img-thumbnail" height="200px" width="200px">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Profile Image</label>
-                        <input type="file" class="form-control-file form-control form-control-lg" v-validate="'required|mimes:image/*'" name="image" data-vv-name="image" data-vv-as="image" @change="readFile($event)" :class="{ 'is-invalid': errors.has('image') }">
+                        <input type="file" class="form-control-file form-control form-control-lg" v-validate="'mimes:image/*'" name="image" data-vv-name="image" data-vv-as="image" @change="readFile($event)" :class="{ 'is-invalid': errors.has('image') }">
                         <span class="help text-danger" v-if="errors.has('image')">{{ errors.first('image') }}</span>
                     </div>
 
@@ -158,17 +158,19 @@ export default {
             let vm = this;
             reader.onload = (e) => {
                 vm.model.image = e.target.result;
+                vm.model.image_link = e.target.result;
             };
             reader.readAsDataURL(file);
         },
 
         onSubmit() {
+            let id = this.$route.params.id;
             let self = this;
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    User.save(self.model, data => {
+                    User.update(id,self.model, data => {
                         self.busy = false;
                         self.$router.push({ name: 'index' });
                         Notify.success('Oh No Scuuess ...');

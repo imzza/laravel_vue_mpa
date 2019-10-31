@@ -1,12 +1,12 @@
 <template>
     <div class="mian">
-        <div class="row justify-content-end mt-3">
-            <div class="col-4">
+        <div class="row justify-content-start mt-3">
+            <div class="col-4 d-flex justify-content-start">
                 <router-link :to="{name: 'index'}">
-                    <button class="btn btn-primary">Home</button>
+                    <button class="btn btn-primary mr-3">Home</button>
                 </router-link>
                 <router-link :to="{name: 'add'}">
-                    <button class="btn btn-primary">Add</button>
+                    <button class="btn btn-primary mr-3">Add</button>
                 </router-link>
             </div>
         </div>
@@ -17,6 +17,8 @@
 </template>
 <script>
 import VueRouter from 'vue-router';
+// () => import('~/components/Index.vue')
+
 export default {
     name: 'Index',
     props: ['sdata'],
@@ -32,7 +34,7 @@ export default {
         routes: [{
                 path: '/index',
                 name: 'index',
-                component: () => import('~/components/Index.vue'),
+                component: require('./Index.vue').default,
             },
             {
                 path: '/',
@@ -41,12 +43,12 @@ export default {
             {
                 path: '/add',
                 name: 'add',
-                component: () => import('~/components/Add.vue'),
+                component: require('./Add.vue').default,
             },
             {
                 path: '/edit/:id',
                 name: 'edit-item',
-                component: () => import('~/components/Edit.vue'),
+                component: require('./Edit.vue').default,
                 props: true
             },
             {
