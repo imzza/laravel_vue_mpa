@@ -32,5 +32,9 @@ class HomeController extends Controller
         return view('dashboard', ['users' => \App\User::all()]);
     }
 
+    public function test() {
+        return 'Test Route';
+    }
+
 
 }
