@@ -6,27 +6,24 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Resources\StudentResource;
 
-class StudentsController extends Controller
-{
+class StudentsController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $sortRules = $request->input('sort');
         $limit = $request->input('per_page');
         list($field, $dir) = explode('|', $sortRules);
 
         $result = Student::orderBy($field, $dir);
-        if ($request->filter !="") {
-             $result = $result->where('first_name', 'like', $request->filter);
-             $result = $result->orWhere('last_name', 'like', $request->filter);
-             // $result = $result->orWhere('name', 'like', $request->filter);
-             $result = $result->orWhere('email', 'like', $request->filter);
-             $result = $result->orWhere('address', 'like', $request->filter);
-             $result = $result->orWhere('about', 'like', $request->filter);
+        if ($request->filter != '') {
+            $result = $result->where('first_name', 'like', $request->filter);
+            $result = $result->orWhere('last_name', 'like', $request->filter);
+            $result = $result->orWhere('email', 'like', $request->filter);
+            $result = $result->orWhere('address', 'like', $request->filter);
+            $result = $result->orWhere('about', 'like', $request->filter);
         }
         $result = $result->paginate($limit);
 
@@ -40,7 +37,6 @@ class StudentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
         $request->validate([
             'about' => 'required|min:100',
             'address' => 'required',
@@ -52,20 +48,19 @@ class StudentsController extends Controller
             'last_name' => 'required',
             'password' => 'required',
             'state' => 'required',
-            'zip' => 'required',
+            'zip' => 'required'
         ]);
 
-
-        $name="";
-        if($request->get('image')) {
-          $image = $request->get('image');
-          $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+        $name = '';
+        if ($request->get('image')) {
+            $image = $request->get('image');
+            $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
 
             if (!file_exists(public_path('images/'))) {
                 mkdir(public_path('images/'), 666, true);
             }
 
-          \Image::make($request->get('image'))->save(public_path('images/').$name);
+            \Image::make($request->get('image'))->save(public_path('images/') . $name);
         }
 
         $student = new Student();
@@ -82,16 +77,14 @@ class StudentsController extends Controller
         $student->state = $request->state;
         $student->zip = $request->zip;
 
-
         if ($request->exists('offers')) {
             $student->offers = $request->offers;
         }
 
-
         $student->save();
         if ($student->id) {
-            return response()->json($student,201);
-        }else{
+            return response()->json($student, 201);
+        } else {
             return response()->json(['message' => 'Bad Request'], 400);
         }
     }
@@ -102,10 +95,9 @@ class StudentsController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
-    {
-        if ($student->image !='') {
-            $student->image_link = url('public/images/'.$student->image);
+    public function show(Student $student) {
+        if ($student->image != '') {
+            $student->image_link = url('public/images/' . $student->image);
             $student->image = '';
         }
         return response()->json($student, 200);
@@ -118,9 +110,8 @@ class StudentsController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
-    {
-          $request->validate([
+    public function update(Request $request, Student $student) {
+        $request->validate([
             'about' => 'required|min:100',
             'address' => 'required',
             'city' => 'required',
@@ -130,21 +121,20 @@ class StudentsController extends Controller
             'last_name' => 'required',
             'password' => 'required',
             'state' => 'required',
-            'zip' => 'required',
+            'zip' => 'required'
         ]);
 
+        $name = '';
 
-        $name="";
-
-        if($request->get('image') && $request->image !='') {
-          $image = $request->get('image');
-          $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+        if ($request->get('image') && $request->image != '') {
+            $image = $request->get('image');
+            $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
 
             if (!file_exists(public_path('images/'))) {
                 mkdir(public_path('images/'), 666, true);
             }
 
-          \Image::make($request->get('image'))->save(public_path('images/').$name);
+            \Image::make($request->get('image'))->save(public_path('images/') . $name);
         }
 
         $student->about = $request->about;
@@ -154,7 +144,7 @@ class StudentsController extends Controller
         $student->email = $request->email;
         $student->first_name = $request->first_name;
         $student->gender = $request->gender;
-        if ($name !="") {
+        if ($name != '') {
             $student->image = $name;
         }
         $student->last_name = $request->last_name;
@@ -162,17 +152,15 @@ class StudentsController extends Controller
         $student->state = $request->state;
         $student->zip = $request->zip;
 
-
         if ($request->exists('offers')) {
             $student->offers = $request->offers;
         }
 
-
-        $res =  $student->save();
+        $res = $student->save();
         dd($res);
         if ($student->id) {
-            return response()->json($student,201);
-        }else{
+            return response()->json($student, 201);
+        } else {
             return response()->json(['message' => 'Bad Request'], 400);
         }
     }
@@ -183,8 +171,7 @@ class StudentsController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
-    {
+    public function destroy(Student $student) {
         $student->delete();
         return response()->json(null, 204);
     }

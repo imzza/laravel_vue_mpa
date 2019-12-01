@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -22,8 +20,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index() {
         // Auth::user()->syncRoles(['SUP']);
         //  $role = Auth::user()->getRoleNames();
         //  dd($role);
@@ -35,6 +32,4 @@ class HomeController extends Controller
     public function test() {
         return 'Test Route';
     }
-
-
 }

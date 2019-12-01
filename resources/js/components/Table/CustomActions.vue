@@ -10,26 +10,24 @@ export default {
     props: {
         rowData: {
             type: Object,
-            required: true
+            required: true,
         },
         rowIndex: {
-            type: Number
-        }
+            type: Number,
+        },
     },
     methods: {
         itemAction(action, data, index) {
             if (action == 'edit') {
-                this.$router.push({path: '/edit/'+data.id});
-            }else if(action == 'delete'){
+                this.$router.push({ path: '/edit/' + data.id });
+            } else if (action == 'delete') {
                 Notify.confirm().then(resp => {
-                    EventBus.$emit('DELETE_CONTACT', {id: data.id, index: index});
+                    EventBus.$emit('DELETE_CONTACT', { id: data.id, index: index });
                 });
             }
-            console.log('custom-actions: ' + action, data, index)
-        }
-    }
-}
-
+            console.log('custom-actions: ' + action, data, index);
+        },
+    },
+};
 </script>
-<style>
-</style>
+<style></style>

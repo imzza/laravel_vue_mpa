@@ -1,0 +1,10 @@
+{
+    "root": true,
+    "parserOptions": {
+        // "parser": "babel-eslint",
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "extends": ["plugin:vue/recommended", "standard"],
+    "rules": { "vue/max-attributes-per-line": "off" }
+}

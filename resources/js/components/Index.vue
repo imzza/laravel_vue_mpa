@@ -10,21 +10,21 @@
 </template>
 <!--/api/v1/employees_all vuetable.ratiw.net/api/users -->
 <script>
-import moment from 'moment'
-import Vuetable from 'vuetable-2/src/components/Vuetable'
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-import Vue from 'vue'
+import moment from 'moment';
+import Vuetable from 'vuetable-2/src/components/Vuetable';
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
+import Vue from 'vue';
 
-import VueEvents from 'vue-events'
-import CustomActions from './Table/CustomActions'
-import DetailRow from './Table/DetailRow'
-import FilterBar from './Table/FilterBar'
-Vue.use(VueEvents)
+import VueEvents from 'vue-events';
+import CustomActions from './Table/CustomActions';
+import DetailRow from './Table/DetailRow';
+import FilterBar from './Table/FilterBar';
+Vue.use(VueEvents);
 
-Vue.component('custom-actions', CustomActions)
-Vue.component('my-detail-row', DetailRow)
-Vue.component('filter-bar', FilterBar)
+Vue.component('custom-actions', CustomActions);
+Vue.component('my-detail-row', DetailRow);
+Vue.component('filter-bar', FilterBar);
 
 import User from '~/api/user.js';
 export default {
@@ -36,11 +36,12 @@ export default {
     },
     data() {
         return {
-            flds: [{
+            flds: [
+                {
                     name: '__sequence',
                     title: '#',
                     titleClass: 'text-right',
-                    dataClass: 'text-right'
+                    dataClass: 'text-right',
                 },
                 // {
                 //   name: '__checkbox',
@@ -60,7 +61,7 @@ export default {
                 {
                     name: 'email',
                     title: 'Email Address',
-                    sortField: 'email'
+                    sortField: 'email',
                 },
                 {
                     name: 'city',
@@ -83,27 +84,27 @@ export default {
                     sortField: 'created_at',
                     titleClass: 'text-center',
                     dataClass: 'text-center',
-                    callback: 'formatDate|DD-MM-YYYY'
+                    callback: 'formatDate|DD-MM-YYYY',
                 },
                 {
                     name: 'gender',
                     sortField: 'gender',
                     titleClass: 'text-center',
                     dataClass: 'text-center',
-                    callback: 'genderLabel'
+                    callback: 'genderLabel',
                 },
                 {
                     name: '__component:custom-actions',
                     title: 'Actions',
                     titleClass: 'text-center',
-                    dataClass: 'text-center'
-                }
+                    dataClass: 'text-center',
+                },
             ],
             css: {
                 table: {
                     tableClass: 'table table-bordered table-striped table-hover',
                     ascendingIcon: 'fa fa-chevron-up',
-                    descendingIcon: 'fa fa-chevron-down'
+                    descendingIcon: 'fa fa-chevron-down',
                 },
                 pagination: {
                     wrapperClass: 'pagination',
@@ -125,52 +126,48 @@ export default {
                     last: 'fa fa-step-forward',
                 },
             },
-            sortOrder: [
-                { field: 'email', sortField: 'email', direction: 'asc' }
-            ],
-            moreParams: {}
-        }
+            sortOrder: [{ field: 'email', sortField: 'email', direction: 'asc' }],
+            moreParams: {},
+        };
     },
     methods: {
         myFetch(apiUrl, httpOptions) {
-            return axios.get(apiUrl, httpOptions)
+            return axios.get(apiUrl, httpOptions);
         },
         allcap(value) {
-            return value.toUpperCase()
+            return value.toUpperCase();
         },
         genderLabel(value) {
-            return value === 'male' ?
-                '<span class="label label-success"><i class="fa fa-star"></i> Male</span>' :
-                '<span class="label label-danger"><i class="fa fa-heart"></i> Female</span>'
+            return value === 'male' ? '<span class="label label-success"><i class="fa fa-star"></i> Male</span>' : '<span class="label label-danger"><i class="fa fa-heart"></i> Female</span>';
         },
         formatNumber(value) {
-            return value, 2
+            return value, 2;
         },
         formatDate(value, fmt = 'D MMM YYYY') {
-            return (value == null) ?
-                '' : moment(value, 'YYYY-MM-DD').format(fmt)
+            return value == null ? '' : moment(value, 'YYYY-MM-DD').format(fmt);
         },
         onPaginationData(paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData)
-            this.$refs.paginationInfo.setPaginationData(paginationData)
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
         },
         onChangePage(page) {
-
-            this.$refs.vuetable.changePage(page)
+            this.$refs.vuetable.changePage(page);
         },
         onCellClicked(data, field, event) {
             // console.log('cellClicked: ', field.name)
             // this.$refs.vuetable.toggleDetailRow(data.id)
         },
         check_c() {
-            axios.get(API_URL + 'students')
+            axios
+                .get(API_URL + 'students')
                 .then(resp => {
                     if (resp.status == 200) {
                         console.log(resp);
                     } else {
                         console.log('error');
                     }
-                }).catch(err => {
+                })
+                .catch(err => {
                     console.log('error');
                 });
         },
@@ -178,36 +175,39 @@ export default {
     events: {
         'filter-set'(filterText) {
             this.moreParams = {
-                filter: filterText
-            }
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
+                filter: filterText,
+            };
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
         'filter-reset'() {
-            this.moreParams = {}
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
-        }
+            this.moreParams = {};
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
+        },
     },
     computed: {
         ApiUrl() {
             return API_URL;
-        }
+        },
     },
-    created(){
+    created() {
         EventBus.$on('DELETE_CONTACT', data => {
             console.log(data);
-            User.delete(data.id, resp => {
-                Notify.success('Deleted successfully');
-                this.$refs.vuetable.refresh();
-            }, err =>{
-                Notify.error('Something went wrong');
-            });
+            User.delete(
+                data.id,
+                resp => {
+                    Notify.success('Deleted successfully');
+                    this.$refs.vuetable.refresh();
+                },
+                err => {
+                    Notify.error('Something went wrong');
+                }
+            );
         });
     },
-    destroyed(){
+    destroyed() {
         EventBus.$on('DELETE_CONTACT');
-    }
-}
-
+    },
+};
 </script>
 <style>
 .vuetable-empty-result {

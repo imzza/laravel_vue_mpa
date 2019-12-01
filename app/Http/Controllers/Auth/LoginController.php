@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Auth\Events\Login;
 use App\dbUser;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -47,14 +46,11 @@ class LoginController extends Controller
     //     return redirect('/home');
     // }
 
-
-    protected function redirectTo()
-    {
+    protected function redirectTo() {
         return '/';
     }
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest')->except('logout');
     }
 }

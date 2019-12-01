@@ -11,35 +11,28 @@ use Illuminate\Support\Facades\Auth;
 
 use Spatie\Permission\Traits\HasRoles;
 
-
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use Notifiable, HasApiTokens, HasRoles;
 
     public $table = 'users';
     protected $primaryKey = 'id';
-
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
+    protected $fillable = ['name', 'email', 'password'];
 
     public function getAllPermissionsAttribute() {
-      $permissions = [];
+        $permissions = [];
         foreach (Permission::all() as $permission) {
-          if (Auth::user()->can($permission->name)) {
-            $permissions[] = $permission->name;
-          }
+            if (Auth::user()->can($permission->name)) {
+                $permissions[] = $permission->name;
+            }
         }
         return $permissions;
     }
-
 
     public function getRoleNameAttribute() {
         // $perms = Auth::user()->getPermissionsViaRoles();

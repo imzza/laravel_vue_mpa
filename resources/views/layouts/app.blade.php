@@ -9,7 +9,7 @@
 
         <title>{{ config('app.name') }}</title>
         <link href="{{ asset(mix('public/dist/css/app.css')) }}" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/f84026e448.js" crossorigin="anonymous"></script>
+{{--         <script src="https://kit.fontawesome.com/f84026e448.js" crossorigin="anonymous"></script> --}}
         <script>
           @auth
             window.Permissions = {!! json_encode(Auth::user()->allPermissions, true) !!};

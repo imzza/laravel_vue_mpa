@@ -1,10 +1,10 @@
 export default {
     methods: {
-      $can(permissionName) {
-        return Permissions.indexOf(permissionName) !== -1;
-      },
+        $can(permissionName) {
+            return Permissions.indexOf(permissionName) !== -1;
+        },
     },
-    created(){
+    created() {
         // console.log('Created');
-    }
-  };
+    },
+};
