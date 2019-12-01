@@ -28,11 +28,6 @@ import '@fortawesome/fontawesome-free/js/all.js';
 import Permissions from '~/mixins/cmmon.js';
 Vue.mixin(Permissions);
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
-//DynamiC Import Section
-// Vue.component('mian-component', () => import('./components/MainComponent.vue'));
 
 Vue.component('mian-component', require('./components/MainComponent.vue').default);
 
