@@ -18,6 +18,8 @@ class CreatePermissionTables extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
+            $table->string('key')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
         });
 
@@ -25,6 +27,8 @@ class CreatePermissionTables extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('guard_name');
+            $table->string('role_descrip')->nullable();
+            $table->string('rolename')->nullable();
             $table->timestamps();
         });
 
