@@ -5,6 +5,29 @@ let getUrl = window.location;
 //remove last section for running project as virtual host
 let baseUrl = getUrl.protocol + '//' + getUrl.host + '/' + getUrl.pathname.split('/')[1];
 
+
+
+function ProjectUrl(path= null){
+    let url = window.location.origin;
+    let pth = window.location.pathname;
+    let orig = '';
+    if (url.indexOf('localhost') != -1 || url.indexOf('127.0.0.1') != -1) {
+        orig = url+'/'+pth.split('/')[1];
+    }else{
+        orig = url;
+    }
+
+    if (path != null) {
+        orig = orig+path;
+    }
+    return orig;
+}
+
+window.ProjectUrl = ProjectUrl;
+
+let AB_URL = ProjectUrl();
+console.log('AB_URL:', AB_URL);
+
 window.PREFIX = 'laravel_vue_mpa';
 
 window.SUB_URL = baseUrl;

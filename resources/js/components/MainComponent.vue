@@ -19,6 +19,8 @@
 import VueRouter from 'vue-router';
 // () => import('~/components/Index.vue')
 
+let url = ProjectUrl('');
+
 export default {
     name: 'Index',
     props: ['sdata'],
