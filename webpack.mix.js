@@ -5,7 +5,31 @@ require('laravel-mix-versionhash');
 
 mix.js('resources/js/app.js', './public/dist/js')
     .js('resources/js/vendor.js', './public/dist/js')
-    .sass('resources/sass/app.scss', './public/dist/css');
+    .sass('resources/sass/app.scss', './public/dist/css')
+    .sass('resources/tscss/style.scss', './public/dist/css');
+
+
+
+mix.scripts([
+    "resources/jqjs/bootstrap.js",
+    "resources/jqjs/bootstrap.min.js",
+    "resources/jqjs/detect.js",
+    "resources/jqjs/fastclick.js",
+    "resources/jqjs/jquery.app.js",
+    "resources/jqjs/jquery.blockUI.js",
+    "resources/jqjs/jquery.core.js",
+    "resources/jqjs/jquery.min.js",
+    "resources/jqjs/jquery.nicescroll.js",
+    "resources/jqjs/jquery.scrollTo.min.js",
+    "resources/jqjs/jquery.slimscroll.js",
+    "resources/jqjs/modernizr.min.js",
+    "resources/jqjs/tether.min.js",
+    "resources/jqjs/waves.js"
+], 'public/dist/js/all.js');
+
+
+
+
 
 mix.setPublicPath('./');
 
