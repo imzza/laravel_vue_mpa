@@ -29,6 +29,15 @@ class HomeController extends Controller {
         return view('dashboard', ['users' => \App\User::all()]);
     }
 
+
+    public function admin() {
+
+
+        return view('welcome', ['users' => 'dummy data']);
+
+
+    }
+
     public function test() {
         return 'Test Route';
     }

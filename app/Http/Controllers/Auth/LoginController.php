@@ -38,13 +38,14 @@ class LoginController extends Controller {
      */
 
     //Do teh Dynamic Magic Here
-    // protected function authenticated(Request $request, $user) {
-    //     if ( $user->isAdmin() ) {// do your margic here
-    //         return redirect()->route('dashboard');
-    //     }
 
-    //     return redirect('/home');
-    // }
+
+    protected function authenticated(Request $request, $user) {
+       if ( $user->hasAnyRole(['SUP']) ) {
+            return redirect()->route('admin.index');
+        }
+         return redirect('/');
+    }
 
     protected function redirectTo() {
         return '/';
