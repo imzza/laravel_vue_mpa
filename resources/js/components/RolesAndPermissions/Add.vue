@@ -6,7 +6,7 @@
                 <form @submit.prevent="onSubmit">
                     <div class="form-group">
                         <label for="name" class="control-label">Role Name:</label>
-                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-model="model.name" v-validate="'required'"  data-vv-as="Role name" placeholder="Role Name.." />
+                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-model="model.name" v-validate="'required'" data-vv-as="Role name" placeholder="Role Name.." />
                         <span class="help text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</span>
                     </div>
                     <div class="form-group">
@@ -45,8 +45,7 @@ export default {
     data() {
         return {
             busy: false,
-            model: {
-            },
+            model: {},
         };
     },
     mounted() {

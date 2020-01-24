@@ -5,20 +5,18 @@ let getUrl = window.location;
 //remove last section for running project as virtual host
 let baseUrl = getUrl.protocol + '//' + getUrl.host + '/' + getUrl.pathname.split('/')[1];
 
-
-
-function ProjectUrl(path= null){
+function ProjectUrl(path = null) {
     let url = window.location.origin;
     let pth = window.location.pathname;
     let orig = '';
     if (url.indexOf('localhost') != -1 || url.indexOf('127.0.0.1') != -1) {
-        orig = url+'/'+pth.split('/')[1];
-    }else{
+        orig = url + '/' + pth.split('/')[1];
+    } else {
         orig = url;
     }
 
     if (path != null) {
-        orig = orig+path;
+        orig = orig + path;
     }
     return orig;
 }
@@ -50,7 +48,6 @@ import '@fortawesome/fontawesome-free/js/all.js';
 
 import Permissions from '~/mixins/cmmon.js';
 Vue.mixin(Permissions);
-
 
 Vue.component('mian-component', require('./components/MainComponent.vue').default);
 Vue.component('roles-and-permissions-component', require('./components/RolesAndPermissions/Index.vue').default);

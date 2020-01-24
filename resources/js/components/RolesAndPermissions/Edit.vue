@@ -4,9 +4,9 @@
             <div class="col-6 pl-0">
                 <p>Update Record</p>
                 <form @submit.prevent="onSubmit">
-                   <div class="form-group">
+                    <div class="form-group">
                         <label for="name" class="control-label">Role Name:</label>
-                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-model="model.name" v-validate="'required'"  data-vv-as="Role name" placeholder="Role Name.." />
+                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-model="model.name" v-validate="'required'" data-vv-as="Role name" placeholder="Role Name.." />
                         <span class="help text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</span>
                     </div>
                     <div class="form-group">
@@ -43,8 +43,7 @@ export default {
     data() {
         return {
             busy: false,
-            model: {
-            },
+            model: {},
         };
     },
     mounted() {
@@ -57,7 +56,6 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-
 
                     User.update(
                         id,
@@ -78,14 +76,13 @@ export default {
         },
         async getRole() {
             try {
-                let { data }  = await axios.get(API_URL + 'roles/' + this.$route.params.id);
+                let { data } = await axios.get(API_URL + 'roles/' + this.$route.params.id);
                 this.model = data;
             } catch (e) {
-                 Notify.error('Something went wrong.');
-                 this.$router.push({ path: '/index' });
+                Notify.error('Something went wrong.');
+                this.$router.push({ path: '/index' });
                 console.log(e.response);
-                }
-
+            }
         },
     },
 };

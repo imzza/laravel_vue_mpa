@@ -31,7 +31,7 @@ export default {
     name: 'RolesAndPermissionsIndex',
     data() {
         return {
-            msg: ''
+            msg: '',
             // dta: _.cloneDeep(this.sdata),
         };
     },
@@ -39,7 +39,8 @@ export default {
         mode: 'history',
         base: PREFIX + '/roles_and_permissions/',
         linkActiveClass: 'active',
-        routes: [{
+        routes: [
+            {
                 path: '/index',
                 name: 'index',
                 component: require('./List.vue').default,
@@ -69,7 +70,8 @@ export default {
                 path: '/permissions',
                 name: 'permissions-index',
                 component: { template: '<router-view></router-view>' },
-                children: [{
+                children: [
+                    {
                         path: 'index',
                         name: 'permissions-list',
                         component: require('./List.vue').default,
@@ -85,7 +87,7 @@ export default {
                         component: require('./EditPermission.vue').default,
                         props: true,
                     },
-                ]
+                ],
             },
             {
                 path: '*',
@@ -104,9 +106,6 @@ export default {
         },
     },
 };
-
 </script>
 <style lang="css" scoped></style>
-.btn-cus {
-min-width: 100px;
-}
+.btn-cus { min-width: 100px; }

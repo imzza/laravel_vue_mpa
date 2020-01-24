@@ -4,20 +4,20 @@
             <div class="col-6 pl-0">
                 <p>Update Record</p>
                 <form @submit.prevent="onSubmit">
-                   <div class="form-group">
+                    <div class="form-group">
                         <label for="name" class="control-label">Permission Name:</label>
-                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-validate="'required'"  v-model="model.name"  placeholder="Permission Name" data-vv-as="Permission Name.." />
+                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-validate="'required'" v-model="model.name" placeholder="Permission Name" data-vv-as="Permission Name.." />
                         <span class="help text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</span>
                     </div>
                     <div class="form-group">
                         <label for="permissionkey" class="control-label">Permission Display Name:</label>
-                        <input type="text" name="permissionkey" id="permissionkey" class="form-control form-control-lg" v-validate="'required'" v-model="model.permissionkey" :class="{ 'is-invalid': errors.has('permissionkey') }"placeholder="Permission Display Name" data-vv-as="Permission Display Name" />
+                        <input type="text" name="permissionkey" id="permissionkey" class="form-control form-control-lg" v-validate="'required'" v-model="model.permissionkey" :class="{ 'is-invalid': errors.has('permissionkey') }" placeholder="Permission Display Name" data-vv-as="Permission Display Name" />
                         <span class="help text-danger" v-if="errors.has('permissionkey')">{{ errors.first('permissionkey') }}</span>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12" >
-                            <label for="permissiontype"class="control-label">Permission Type:</label>
-                            <input type="text" class="form-control form-control-lg" name="permissiontype" id="permissiontype"placeholder="Permission Type" data-vv-as="Permission Type" v-model="model.permissiontype" :class="{ 'is-invalid': errors.has('permissiontype') }" v-validate="'required'" />
+                        <div class="form-group col-md-12">
+                            <label for="permissiontype" class="control-label">Permission Type:</label>
+                            <input type="text" class="form-control form-control-lg" name="permissiontype" id="permissiontype" placeholder="Permission Type" data-vv-as="Permission Type" v-model="model.permissiontype" :class="{ 'is-invalid': errors.has('permissiontype') }" v-validate="'required'" />
                             <span class="help text-danger" v-if="errors.has('permissiontype')">{{ errors.first('permissiontype') }}</span>
                         </div>
                     </div>
@@ -43,8 +43,7 @@ export default {
     data() {
         return {
             busy: false,
-            model: {
-            },
+            model: {},
         };
     },
     mounted() {
@@ -57,7 +56,6 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-
 
                     User.update(
                         id,
@@ -78,13 +76,13 @@ export default {
         },
         async getRole() {
             try {
-                let { data }  = await axios.get(API_URL + 'roles/' + this.$route.params.id);
+                let { data } = await axios.get(API_URL + 'roles/' + this.$route.params.id);
                 this.model = data;
-            }catch (e) {
-                 Notify.error('Something went wrong.');
-                 this.$router.push({ path: '/index' });
+            } catch (e) {
+                Notify.error('Something went wrong.');
+                this.$router.push({ path: '/index' });
                 console.log(e.response);
-                }
+            }
         },
     },
 };

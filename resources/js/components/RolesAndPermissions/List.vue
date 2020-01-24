@@ -1,17 +1,17 @@
 <template>
     <div>
         <template>
-    <div class="filter-bar">
-        <form class="form-inline">
-            <div class="form-group d-flex justify-content-end w-100">
-                <label class="cust-label">Search for:</label>
-                <input type="text" v-model="filterText" class="form-control cust-form-control" @keyup.enter="doFilter" placeholder="Search .." />
-                <button class="btn btn-primary w10" @click.prevent="doFilter">Go</button>
-                <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">Reset</button>
+            <div class="filter-bar">
+                <form class="form-inline">
+                    <div class="form-group d-flex justify-content-end w-100">
+                        <label class="cust-label">Search for:</label>
+                        <input type="text" v-model="filterText" class="form-control cust-form-control" @keyup.enter="doFilter" placeholder="Search .." />
+                        <button class="btn btn-primary w10" @click.prevent="doFilter">Go</button>
+                        <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">Reset</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</template>
+        </template>
         <vuetable ref="vuetable" :api-url="`${ApiUrl}students`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData"></vuetable>
         <div class="vuetable-pagination">
             <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
@@ -45,7 +45,7 @@ export default {
         Vuetable,
         VuetablePagination,
         VuetablePaginationInfo,
-        'custom-actions': CustomActions
+        'custom-actions': CustomActions,
     },
     data() {
         return {
@@ -145,13 +145,13 @@ export default {
         };
     },
     methods: {
-        doFilter(){
+        doFilter() {
             this.moreParams = {
                 filter: this.filterText,
             };
             Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
-        resetFilter(){
+        resetFilter() {
             this.filterText = '';
             this.moreParams = {};
             Vue.nextTick(() => this.$refs.vuetable.refresh());
