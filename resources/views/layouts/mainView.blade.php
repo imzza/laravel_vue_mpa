@@ -36,6 +36,12 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                                 </li>
+                                @can('edit articles')
+                                ...
+                                @endcan
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ url('/roles_and_permissions') }}">Roles And Permissions <span class="sr-only"></span></a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/test') }}">Testing <span class="sr-only">(current)</span></a>
                                 </li>

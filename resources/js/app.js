@@ -53,6 +53,7 @@ Vue.mixin(Permissions);
 
 
 Vue.component('mian-component', require('./components/MainComponent.vue').default);
+Vue.component('roles-and-permissions-component', require('./components/RolesAndPermissions/Index.vue').default);
 
 //Dynamic Imports
 // Vue.component('v-button', () => import('./components/Button.vue'));

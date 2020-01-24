@@ -22,11 +22,37 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::apiResource('students', 'StudentsController');
 
-    Route::get('api/students', 'StudentsController@index');
-    Route::post('api/students', 'StudentsController@store');
-    Route::get('api/students/{student}', 'StudentsController@show');
-    Route::put('api/students/{student}', 'StudentsController@update');
-    Route::delete('api/students/{student}', 'StudentsController@destroy');
+    // Route::get('/students', 'StudentsController@index');
+    // Route::post('/students', 'StudentsController@store');
+    // Route::get('/students/{student}', 'StudentsController@show');
+    // Route::put('/students/{student}', 'StudentsController@update');
+    // Route::delete('/students/{student}', 'StudentsController@destroy');
+
+
+
+
+    // Route::get('profile', 'UserController@profile');
+    // Route::post('profile', 'UserController@update');
+
+        Route::apiResource('roles', 'RolesController');
+        //Route::apiResource('permissions', 'PermissionsController');
+        Route::get('/permissions', 'UserController@user_permissions');
+
+
+        Route::get('employees_all', 'EmployeesController@employees_all');
+        Route::get('permission_by_group', 'PermissionsController@permission_by_group');
+        Route::post('roles_assign_permissions', 'RolesController@roles_assign_permissions');
+        Route::get('permission_by_role/{role}', 'PermissionsController@permission_by_role');
+        //Employe Assign Roles
+        Route::get('get_user_role/{user}', 'EmployeesController@get_user_role');
+        Route::post('assign_role', 'EmployeesController@assign_role');
+
+        Route::get('all_permissions', 'PermissionsController@index');
+        Route::post('permissions', 'PermissionsController@store');
+        Route::get('permissions/{permission}', 'PermissionsController@show');
+        Route::put('permissions/{permission}', 'PermissionsController@update');
+        Route::delete('permissions/{permission}', 'PermissionsController@destroy');
+
 
     // For Api Calls
     // Route::put()
