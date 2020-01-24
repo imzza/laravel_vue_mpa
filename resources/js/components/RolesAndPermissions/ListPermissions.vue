@@ -1,6 +1,5 @@
 <template>
     <div>
-        <!-- <filter-bar></filter-bar> -->
         <template>
             <div class="filter-bar">
                 <form class="form-inline">
@@ -13,8 +12,10 @@
                 </form>
             </div>
         </template>
+        <vuetable ref="vuetable" :api-url="`${ApiUrl}permissions`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
 
-        <vuetable ref="vuetable" :api-url="`${ApiUrl}students`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
+
+
         <div slot="actions-slot" slot-scope="props">
             <div class="custom-actions">
                 <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)"><i class="fa fa-eye"></i></button>
@@ -23,6 +24,8 @@
             </div>
         </div>
 
+
+
         </vuetable>
         <div class="vuetable-pagination">
             <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
@@ -30,6 +33,7 @@
         </div>
     </div>
 </template>
+<!--/api/v1/employees_all vuetable.ratiw.net/api/users -->
 <script>
 import moment from 'moment';
 import Vuetable from 'vuetable-2/src/components/Vuetable';
@@ -37,63 +41,39 @@ import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
 import Vue from 'vue';
 
-// import VueEvents from 'vue-events';
-// import CustomActions from './Table/CustomActions';
-// import DetailRow from './Table/DetailRow';
-// import FilterBar from './Table/FilterBar';
-// Vue.use(VueEvents);
-
 
 
 import User from '~/api/user.js';
 export default {
-    name: 'SampleComponent',
+    name: 'ListPermissions',
     components: {
         Vuetable,
         VuetablePagination,
         VuetablePaginationInfo,
-        // CustomActions,
-        // 'filter-bar': FilterBar
     },
     data() {
         return {
             filterText: '',
-            flds: [
-                {
+            flds: [{
                     name: '__sequence',
                     title: '#',
                     titleClass: 'text-right',
                     dataClass: 'text-right',
                 },
                 {
-                    name: 'first_name',
-                    title: 'First Name',
-                    sortField: 'first_name',
+                    name: 'name',
+                    title: 'Permission Name',
+                    sortField: 'name',
                 },
                 {
-                    name: 'last_name',
-                    title: 'Last Name',
-                    sortField: 'last_name',
+                    name: 'key',
+                    title: 'Permission Key',
+                    sortField: 'key',
                 },
                 {
-                    name: 'email',
-                    title: 'Email Address',
-                    sortField: 'email',
-                },
-                {
-                    name: 'city',
-                    title: 'City',
-                    sortField: 'city',
-                },
-                {
-                    name: 'state',
-                    title: 'State',
-                    sortField: 'state',
-                },
-                {
-                    name: 'zip',
-                    title: 'zip',
-                    sortField: 'zip',
+                    name: 'type',
+                    title: 'Permission Type',
+                    sortField: 'type',
                 },
                 {
                     name: 'created_at',
@@ -102,13 +82,6 @@ export default {
                     titleClass: 'text-center',
                     dataClass: 'text-center',
                     callback: 'formatDate|DD-MM-YYYY',
-                },
-                {
-                    name: 'gender',
-                    sortField: 'gender',
-                    titleClass: 'text-center',
-                    dataClass: 'text-center',
-                    callback: 'genderLabel',
                 },
                 {
                     name: "__slot:actions-slot",
@@ -143,30 +116,18 @@ export default {
                     last: 'fa fa-step-forward',
                 },
             },
-            sortOrder: [{ field: 'email', sortField: 'email', direction: 'asc' }],
+            sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
             moreParams: {},
         };
     },
     methods: {
         itemAction(action, data) {
             if (action == 'edit') {
-                this.$router.push({ path: '/edit/' + data });
+                this.$router.push({ path: '/permissions/edit/' + data });
             } else if (action == 'view') {
                 alert('View');
             }
         },
-        doFilter() {
-            this.moreParams = {
-                filter: this.filterText,
-            };
-            Vue.nextTick(() => this.$refs.vuetable.refresh());
-        },
-        resetFilter() {
-            this.filterText = '';
-            this.moreParams = {};
-            Vue.nextTick(() => this.$refs.vuetable.refresh());
-        },
-
         deleteItem(id){
             Notify.confirm().then(resp => {
                 User.delete(
@@ -181,20 +142,32 @@ export default {
                 );
             });
         },
+
+
+        doFilter() {
+            this.moreParams = {
+                filter: this.filterText,
+            };
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
+        },
+        resetFilter() {
+            this.filterText = '';
+            this.moreParams = {};
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
+        },
+
         myFetch(apiUrl, httpOptions) {
             return axios.get(apiUrl, httpOptions);
         },
         allcap(value) {
             return value.toUpperCase();
         },
-        genderLabel(value) {
-            return value === 'male' ? '<span class="label label-success"><i class="fa fa-star"></i> Male</span>' : '<span class="label label-danger"><i class="fa fa-heart"></i> Female</span>';
-        },
         formatNumber(value) {
             return value, 2;
         },
         formatDate(value, fmt = 'D MMM YYYY') {
-            return value == null ? '' : moment(value, 'YYYY-MM-DD').format(fmt);
+            return value == null ? '' : new Date(value).toLocaleDateString();
+
         },
         onPaginationData(paginationData) {
             this.$refs.pagination.setPaginationData(paginationData);
@@ -240,28 +213,47 @@ export default {
         },
     },
     created() {
+        EventBus.$on('DELETE_CONTACT', data => {
+            console.log(data);
+            User.delete(
+                data.id,
+                resp => {
+                    Notify.success('Deleted successfully');
+                    this.$refs.vuetable.refresh();
+                },
+                err => {
+                    Notify.error('Something went wrong');
+                }
+            );
+        });
     },
     destroyed() {
+        EventBus.$on('DELETE_CONTACT');
     },
 };
+
 </script>
 <style>
 .vuetable-empty-result {
     font-weight: bold;
 }
+
 .vuetable-pagination {
     display: flex;
     flex-direction: row;
     font-weight: bold;
     justify-content: space-between;
 }
+
 .pagination-info {
     font-weight: bold;
 }
+
 .pagination .btn-nav {
     width: 30px;
     height: 35px;
 }
+
 .pagination .page {
     cursor: pointer;
 }
@@ -275,9 +267,6 @@ export default {
     font-weight: bold;
     color: #000;
 }
-
-
-
 .cust-label {
     font-weight: bold;
     margin-right: 20px;

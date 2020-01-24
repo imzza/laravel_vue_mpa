@@ -34,9 +34,20 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Route::get('profile', 'UserController@profile');
     // Route::post('profile', 'UserController@update');
 
-        Route::apiResource('roles', 'RolesController');
+        // Route::apiResource('roles', 'RolesController');
+
+
+        Route::get('/roles', 'RolesAndPermissionsController@roles');
+        Route::post('/roles', 'RolesAndPermissionsController@store');
+        Route::get('/roles/{id}', 'RolesAndPermissionsController@show');
+        Route::put('/roles/{id}', 'RolesAndPermissionsController@update');
+        Route::delete('/roles/{id}', 'RolesAndPermissionsController@destroy');
+
+
+
+
         //Route::apiResource('permissions', 'PermissionsController');
-        Route::get('/permissions', 'UserController@user_permissions');
+        Route::get('/permissions', 'RolesAndPermissionsController@permissions');
 
 
         Route::get('employees_all', 'EmployeesController@employees_all');
@@ -44,8 +55,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('roles_assign_permissions', 'RolesController@roles_assign_permissions');
         Route::get('permission_by_role/{role}', 'PermissionsController@permission_by_role');
         //Employe Assign Roles
-        Route::get('get_user_role/{user}', 'EmployeesController@get_user_role');
-        Route::post('assign_role', 'EmployeesController@assign_role');
+        // Route::get('get_user_role/{user}', 'EmployeesController@get_user_role');
+        // Route::post('assign_role', 'EmployeesController@assign_role');
 
         Route::get('all_permissions', 'PermissionsController@index');
         Route::post('permissions', 'PermissionsController@store');

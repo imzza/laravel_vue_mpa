@@ -12,7 +12,7 @@
                 </form>
             </div>
         </template>
-        <vuetable ref="vuetable" :api-url="`${ApiUrl}students`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData"></vuetable>
+        <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData"></vuetable>
         <div class="vuetable-pagination">
             <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
             <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
@@ -140,7 +140,7 @@ export default {
                     last: 'fa fa-step-forward',
                 },
             },
-            sortOrder: [{ field: 'email', sortField: 'email', direction: 'asc' }],
+            sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
             moreParams: {},
         };
     },
@@ -162,9 +162,6 @@ export default {
         },
         allcap(value) {
             return value.toUpperCase();
-        },
-        genderLabel(value) {
-            return value === 'male' ? '<span class="label label-success"><i class="fa fa-star"></i> Male</span>' : '<span class="label label-danger"><i class="fa fa-heart"></i> Female</span>';
         },
         formatNumber(value) {
             return value, 2;
@@ -264,5 +261,23 @@ export default {
     cursor: not-allowed;
     font-weight: bold;
     color: #000;
+}
+.cust-label {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.w10 {
+    width: 7% !important;
+    margin: 0px 10px 0px 10px;
+}
+.f-right {
+    margin-right: -10px !important;
+}
+.cust-form-control {
+    width: 20%;
+    max-width: 200px !important;
+    min-width: 200px !important;
+    border-radius: 0px;
+    background-color: inherit;
 }
 </style>

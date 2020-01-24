@@ -74,7 +74,7 @@ export default {
                     {
                         path: 'index',
                         name: 'permissions-list',
-                        component: require('./List.vue').default,
+                        component: require('./ListPermissions.vue').default,
                     },
                     {
                         path: 'add',

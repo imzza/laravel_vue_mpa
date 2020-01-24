@@ -29,22 +29,5 @@ export default {
 };
 </script>
 <style>
-.cust-label {
-    font-weight: bold;
-    margin-right: 20px;
-}
-.w10 {
-    width: 7% !important;
-    margin: 0px 10px 0px 10px;
-}
-.f-right {
-    margin-right: -10px !important;
-}
-.cust-form-control {
-    width: 20%;
-    max-width: 200px !important;
-    min-width: 200px !important;
-    border-radius: 0px;
-    background-color: inherit;
-}
+
 </style>

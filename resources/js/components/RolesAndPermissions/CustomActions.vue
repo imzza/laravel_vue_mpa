@@ -1,8 +1,8 @@
 <template>
     <div class="custom-actions">
-        <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', rowData, rowIndex)"><i class="fa fa-eye"></i></button>
-        <button class="btn btn-primary btn-sm" @click="itemAction('edit', rowData, rowIndex)"><i class="fa fa-pencil"></i></button>
-        <button class="btn btn-primary btn-sm" @click="itemAction('delete', rowData, rowIndex)"><i class="fa fa-trash"></i></button>
+        <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" v-on:click="itemAction('view', rowData, rowIndex)"><i class="fa fa-eye"></i></button>
+        <button class="btn btn-primary btn-sm" v-on:click="itemAction('edit', rowData, rowIndex)"><i class="fa fa-pencil"></i></button>
+        <button class="btn btn-primary btn-sm" v-on:click="itemAction('delete', rowData, rowIndex)"><i class="fa fa-trash"></i></button>
     </div>
 </template>
 <script>
