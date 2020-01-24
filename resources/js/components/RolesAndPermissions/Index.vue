@@ -88,13 +88,6 @@ export default {
                 ]
             },
             {
-                path: '/edit/:id',
-                name: 'edit-item',
-                component: require('./Edit.vue').default,
-                props: true,
-            },
-
-            {
                 path: '*',
                 redirect: '/',
             },
