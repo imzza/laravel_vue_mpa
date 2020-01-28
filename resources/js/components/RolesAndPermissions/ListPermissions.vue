@@ -1,236 +1,236 @@
 <template>
-    <div>
-        <template>
-            <div class="filter-bar">
-                <form class="form-inline">
-                    <div class="form-group d-flex justify-content-end w-100">
-                        <label class="cust-label">Search for:</label>
-                        <input type="text" v-model="filterText" class="form-control cust-form-control" @keyup.enter="doFilter" placeholder="Search .." />
-                        <button class="btn btn-primary w10" @click.prevent="doFilter">Go</button>
-                        <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">Reset</button>
-                    </div>
-                </form>
-            </div>
-        </template>
-        <vuetable ref="vuetable" :api-url="`${ApiUrl}permissions`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
-
-
-
-        <div slot="actions-slot" slot-scope="props">
-            <div class="custom-actions">
-                <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)"><i class="fa fa-eye"></i></button>
-                <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)"><i class="fa fa-trash"></i></button>
-            </div>
+  <div>
+    <template>
+      <div class="filter-bar">
+        <form class="form-inline">
+          <div class="form-group d-flex justify-content-end w-100">
+            <label class="cust-label">Search for:</label>
+            <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter">
+            <button class="btn btn-primary w10" @click.prevent="doFilter">
+              Go
+            </button>
+            <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </template>
+    <vuetable ref="vuetable" :api-url="`${ApiUrl}permissions`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
+      <div slot="actions-slot" slot-scope="props">
+        <div class="custom-actions">
+          <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)">
+            <i class="fa fa-eye" />
+          </button>
+          <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
+            <i class="fa fa-edit" />
+          </button>
+          <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+            <i class="fa fa-trash" />
+          </button>
         </div>
-
-
-
-        </vuetable>
-        <div class="vuetable-pagination">
-            <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
-            <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
-        </div>
+      </div>
+    </vuetable>
+    <div class="vuetable-pagination">
+      <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info" />
+      <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage" />
     </div>
+  </div>
 </template>
 <!--/api/v1/employees_all vuetable.ratiw.net/api/users -->
 <script>
-import moment from 'moment';
-import Vuetable from 'vuetable-2/src/components/Vuetable';
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
-import Vue from 'vue';
+import moment from 'moment'
+import Vuetable from 'vuetable-2/src/components/Vuetable'
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+import Vue from 'vue'
+import Permission from '~/api/permission';
 
-
-
-import User from '~/api/user.js';
 export default {
-    name: 'ListPermissions',
-    components: {
-        Vuetable,
-        VuetablePagination,
-        VuetablePaginationInfo,
-    },
-    data() {
-        return {
-            filterText: '',
-            flds: [{
-                    name: '__sequence',
-                    title: '#',
-                    titleClass: 'text-right',
-                    dataClass: 'text-right',
-                },
-                {
-                    name: 'name',
-                    title: 'Permission Name',
-                    sortField: 'name',
-                },
-                {
-                    name: 'key',
-                    title: 'Permission Key',
-                    sortField: 'key',
-                },
-                {
-                    name: 'type',
-                    title: 'Permission Type',
-                    sortField: 'type',
-                },
-                {
-                    name: 'created_at',
-                    title: 'Created',
-                    sortField: 'created_at',
-                    titleClass: 'text-center',
-                    dataClass: 'text-center',
-                    callback: 'formatDate|DD-MM-YYYY',
-                },
-                {
-                    name: "__slot:actions-slot",
-                    title: 'Actions',
-                    titleClass: 'text-center',
-                    dataClass: 'text-center',
-                },
-            ],
-            css: {
-                table: {
-                    tableClass: 'table table-bordered table-striped table-hover',
-                    ascendingIcon: 'fa fa-chevron-up',
-                    descendingIcon: 'fa fa-chevron-down',
-                },
-                pagination: {
-                    wrapperClass: 'pagination',
-                    activeClass: 'active',
-                    disabledClass: 'disabled',
-                    pageClass: 'page',
-                    linkClass: 'link',
-                    icons: {
-                        first: '',
-                        prev: '',
-                        next: '',
-                        last: '',
-                    },
-                },
-                icons: {
-                    first: 'fa fa-step-backward',
-                    prev: 'fa fa-chevron-left',
-                    next: 'fa fa-chevron-right',
-                    last: 'fa fa-step-forward',
-                },
-            },
-            sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
-            moreParams: {},
-        };
-    },
-    methods: {
-        itemAction(action, data) {
-            if (action == 'edit') {
-                this.$router.push({ path: '/permissions/edit/' + data });
-            } else if (action == 'view') {
-                alert('View');
-            }
+  name: 'ListPermissions',
+  components: {
+    Vuetable,
+    VuetablePagination,
+    VuetablePaginationInfo
+  },
+  data () {
+    return {
+      filterText: '',
+      flds: [{
+        name: '__sequence',
+        title: '#',
+        titleClass: 'text-right',
+        dataClass: 'text-right'
+      },
+      {
+        name: 'name',
+        title: 'Permission Name',
+        sortField: 'name'
+      },
+      {
+        name: 'key',
+        title: 'Permission Key',
+        sortField: 'key'
+      },
+      {
+        name: 'type',
+        title: 'Permission Type',
+        sortField: 'type'
+      },
+      {
+        name: 'created_at',
+        title: 'Created',
+        sortField: 'created_at',
+        titleClass: 'text-center',
+        dataClass: 'text-center',
+        callback: 'formatDate|DD-MM-YYYY'
+      },
+      {
+        name: '__slot:actions-slot',
+        title: 'Actions',
+        titleClass: 'text-center',
+        dataClass: 'text-center'
+      }
+      ],
+      css: {
+        table: {
+          tableClass: 'table table-bordered table-striped table-hover',
+          ascendingIcon: 'fa fa-chevron-up',
+          descendingIcon: 'fa fa-chevron-down'
         },
-        deleteItem(id){
-            Notify.confirm().then(resp => {
-                User.delete(
-                    id,
-                    resp => {
-                        Notify.success('Deleted successfully');
-                        this.$refs.vuetable.refresh();
-                    },
-                    err => {
-                        Notify.error('Something went wrong');
-                    }
-                );
-            });
+        pagination: {
+          wrapperClass: 'pagination',
+          activeClass: 'active',
+          disabledClass: 'disabled',
+          pageClass: 'page',
+          linkClass: 'link',
+          icons: {
+            first: '',
+            prev: '',
+            next: '',
+            last: ''
+          }
         },
+        icons: {
+          first: 'fa fa-step-backward',
+          prev: 'fa fa-chevron-left',
+          next: 'fa fa-chevron-right',
+          last: 'fa fa-step-forward'
+        }
+      },
+      sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
+      moreParams: {}
+    }
+  },
+  // events: {
+  //     'filter-set'(filterText) {
+  //         this.moreParams = {
+  //             filter: filterText,
+  //         };
+  //         Vue.nextTick(() => this.$refs.vuetable.refresh());
+  //     },
+  //     'filter-reset'() {
+  //         this.moreParams = {};
+  //         Vue.nextTick(() => this.$refs.vuetable.refresh());
+  //     },
+  // },
+  computed: {
+    ApiUrl () {
+      return API_URL
+    }
+  },
+  created () {
+    EventBus.$on('DELETE_CONTACT', data => {
+      console.log(data)
+      User.delete(
+        data.id,
+        resp => {
+          Notify.success('Deleted successfully')
+          this.$refs.vuetable.refresh()
+        },
+        err => {
+          Notify.error('Something went wrong')
+        }
+      )
+    })
+  },
+  destroyed () {
+    EventBus.$on('DELETE_CONTACT')
+  },
+  methods: {
+    itemAction (action, data) {
+      if (action == 'edit') {
+        this.$router.push({ path: '/permissions/edit/' + data })
+      } else if (action == 'view') {
+        alert('View')
+      }
+    },
+    deleteItem (id) {
+      Notify.confirm().then(resp => {
+        Permission.delete(
+          id,
+          resp => {
+            Notify.success('Permission Deleted successfully!')
+            this.$refs.vuetable.refresh()
+          },
+          err => {
+            Notify.error('Fail, Permission not deleted!')
+          }
+        )
+      })
+    },
 
+    doFilter () {
+      this.moreParams = {
+        filter: this.filterText
+      }
+      Vue.nextTick(() => this.$refs.vuetable.refresh())
+    },
+    resetFilter () {
+      this.filterText = ''
+      this.moreParams = {}
+      Vue.nextTick(() => this.$refs.vuetable.refresh())
+    },
 
-        doFilter() {
-            this.moreParams = {
-                filter: this.filterText,
-            };
-            Vue.nextTick(() => this.$refs.vuetable.refresh());
-        },
-        resetFilter() {
-            this.filterText = '';
-            this.moreParams = {};
-            Vue.nextTick(() => this.$refs.vuetable.refresh());
-        },
-
-        myFetch(apiUrl, httpOptions) {
-            return axios.get(apiUrl, httpOptions);
-        },
-        allcap(value) {
-            return value.toUpperCase();
-        },
-        formatNumber(value) {
-            return value, 2;
-        },
-        formatDate(value, fmt = 'D MMM YYYY') {
-            return value == null ? '' : new Date(value).toLocaleDateString();
-
-        },
-        onPaginationData(paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData);
-            this.$refs.paginationInfo.setPaginationData(paginationData);
-        },
-        onChangePage(page) {
-            this.$refs.vuetable.changePage(page);
-        },
-        onCellClicked(data, field, event) {
-            // console.log('cellClicked: ', field.name)
-            // this.$refs.vuetable.toggleDetailRow(data.id)
-        },
-        check_c() {
-            axios
-                .get(API_URL + 'students')
-                .then(resp => {
-                    if (resp.status == 200) {
-                        console.log(resp);
-                    } else {
-                        console.log('error');
-                    }
-                })
-                .catch(err => {
-                    console.log('error');
-                });
-        },
+    myFetch (apiUrl, httpOptions) {
+      return axios.get(apiUrl, httpOptions)
     },
-    // events: {
-    //     'filter-set'(filterText) {
-    //         this.moreParams = {
-    //             filter: filterText,
-    //         };
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    //     'filter-reset'() {
-    //         this.moreParams = {};
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    // },
-    computed: {
-        ApiUrl() {
-            return API_URL;
-        },
+    allcap (value) {
+      return value.toUpperCase()
     },
-    created() {
-        EventBus.$on('DELETE_CONTACT', data => {
-            console.log(data);
-            User.delete(
-                data.id,
-                resp => {
-                    Notify.success('Deleted successfully');
-                    this.$refs.vuetable.refresh();
-                },
-                err => {
-                    Notify.error('Something went wrong');
-                }
-            );
-        });
+    formatNumber (value) {
+      return value, 2
     },
-    destroyed() {
-        EventBus.$on('DELETE_CONTACT');
+    formatDate (value, fmt = 'D MMM YYYY') {
+      return value == null ? '' : new Date(value).toLocaleDateString()
     },
-};
+    onPaginationData (paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData)
+      this.$refs.paginationInfo.setPaginationData(paginationData)
+    },
+    onChangePage (page) {
+      this.$refs.vuetable.changePage(page)
+    },
+    onCellClicked (data, field, event) {
+      // console.log('cellClicked: ', field.name)
+      // this.$refs.vuetable.toggleDetailRow(data.id)
+    },
+    check_c () {
+      axios
+        .get(API_URL + 'students')
+        .then(resp => {
+          if (resp.status == 200) {
+            console.log(resp)
+          } else {
+            console.log('error')
+          }
+        })
+        .catch(err => {
+          console.log('error')
+        })
+    }
+  }
+}
 
 </script>
 <style>

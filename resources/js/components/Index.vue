@@ -212,7 +212,7 @@ export default {
                 .get(API_URL + 'students')
                 .then(resp => {
                     if (resp.status == 200) {
-                        console.log(resp);
+                        console.log("resp:",resp);
                     } else {
                         console.log('error');
                     }

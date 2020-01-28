@@ -1,33 +1,39 @@
 <template>
-    <div class="custom-actions">
-        <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" v-on:click="itemAction('view', rowData, rowIndex)"><i class="fa fa-eye"></i></button>
-        <button class="btn btn-primary btn-sm" v-on:click="itemAction('edit', rowData, rowIndex)"><i class="fa fa-pencil"></i></button>
-        <button class="btn btn-primary btn-sm" v-on:click="itemAction('delete', rowData, rowIndex)"><i class="fa fa-trash"></i></button>
-    </div>
+  <div class="custom-actions">
+    <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', rowData, rowIndex)">
+      <i class="fa fa-eye" />
+    </button>
+    <button class="btn btn-primary btn-sm" @click="itemAction('edit', rowData, rowIndex)">
+      <i class="fa fa-pencil" />
+    </button>
+    <button class="btn btn-primary btn-sm" @click="itemAction('delete', rowData, rowIndex)">
+      <i class="fa fa-trash" />
+    </button>
+  </div>
 </template>
 <script>
 export default {
-    props: {
-        rowData: {
-            type: Object,
-            required: true,
-        },
-        rowIndex: {
-            type: Number,
-        },
+  props: {
+    rowData: {
+      type: Object,
+      required: true
     },
-    methods: {
-        itemAction(action, data, index) {
-            if (action == 'edit') {
-                this.$router.push({ path: '/edit/' + data.id });
-            } else if (action == 'delete') {
-                Notify.confirm().then(resp => {
-                    EventBus.$emit('DELETE_CONTACT', { id: data.id, index: index });
-                });
-            }
-            console.log('custom-actions: ' + action, data, index);
-        },
-    },
-};
+    rowIndex: {
+      type: Number
+    }
+  },
+  methods: {
+    itemAction (action, data, index) {
+      if (action == 'edit') {
+        this.$router.push({ path: '/edit/' + data.id })
+      } else if (action == 'delete') {
+        Notify.confirm().then(resp => {
+          EventBus.$emit('DELETE_CONTACT', { id: data.id, index: index })
+        })
+      }
+      console.log('custom-actions: ' + action, data, index)
+    }
+  }
+}
 </script>
 <style></style>
