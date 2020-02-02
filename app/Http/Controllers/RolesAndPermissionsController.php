@@ -25,10 +25,44 @@ class RolesAndPermissionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeRole(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'rolename' => 'required|min:3',
+            'roledescription' => 'required',
+        ]);
+        $role = new Role();
+        $role->name = $request->name;
+        $role->rolename = $request->rolename;
+        $role->role_descrip = $request->roledescription;
+        $role->save();
+        if ($role->id) {
+            return response()->json($role, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }
     }
+
+    public function storePermission(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'permissionkey' => 'required',
+            'permissiontype' => 'required',
+        ]);
+        $permission = new Permission();
+        $permission->name = $request->name;
+        $permission->key = $request->permissionkey;
+        $permission->type = $request->permissiontype;
+        $permission->save();
+        if ($permission->id) {
+            return response()->json($permission, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -36,9 +70,24 @@ class RolesAndPermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getRoleById($id)
     {
-        //
+        $role = Role::where('id', $id)->first();
+        if ($role->id) {
+            return response()->json($role, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }
+    }
+
+    public function getPermissionById($id)
+    {
+        $permission = Permission::where('id', $id)->first();
+        if ($permission->id) {
+            return response()->json($permission, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }
     }
 
     /**
@@ -48,9 +97,44 @@ class RolesAndPermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateRole(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'rolename' => 'required|min:3',
+            'roledescription' => 'required',
+        ]);
+        $updateRoleData = array(
+            'name' => $request->name,
+            'rolename' => $request->rolename,
+            'role_descrip' => $request->roledescription
+        );
+        $affectedRows = Role::where('id', '=', $id)->update($updateRoleData);
+        if ($affectedRows) {
+            return response()->json($affectedRows, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }   
+    }
+
+    public function updatePermission(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'permissionkey' => 'required',
+            'permissiontype' => 'required',
+        ]);
+        $updatePermissionData = array(
+            'name' => $request->name,
+            'key' => $request->permissionkey,
+            'type' => $request->permissiontype
+        );
+        $affectedRows = Permission::where('id', '=', $id)->update($updatePermissionData);
+        if ($affectedRows) {
+            return response()->json($affectedRows, 201);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }   
     }
 
     /**
@@ -59,9 +143,24 @@ class RolesAndPermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyPermission($id)
     {
-        //
+        $affectedRows = Permission::where('id', '=', $id)->delete();
+        if ($affectedRows) {
+            return response()->json($affectedRows, 204);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }  
+    }
+
+    public function destroyRole($id)
+    {
+        $affectedRows = Role::where('id', '=', $id)->delete();
+        if ($affectedRows) {
+            return response()->json($affectedRows, 204);
+        } else {
+            return response()->json(['message' => 'Bad Request'], 400);
+        }  
     }
 
 
