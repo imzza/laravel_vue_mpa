@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-import User from '~/api/role';
+import Permission from '~/api/permission';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
@@ -44,40 +44,44 @@ export default {
         return {
             busy: false,
             model: {},
+            id: this.$route.params.id
         };
     },
     mounted() {
-        // this.getRole();
+        this.getPermissionById();
     },
     methods: {
         onSubmit() {
-            let id = this.$route.params.id;
             let self = this;
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-
-                    User.update(
-                        id,
+                    Permission.update(
+                        this.id,
                         self.model,
                         data => {
                             self.busy = false;
                             self.$router.push({ name: 'index' });
-                            Notify.success('Scuuess ...');
+                            Notify.success('Permission Updated Successfully!')
                         },
                         err => {
                             self.busy = false;
                             console.log(err);
                             this.$setErrorsFromResponse(err);
+                            Notify.success('Fail, Permission Not Updated!');
                         }
                     );
                 }
             });
         },
-        async getRole() {
+        async getPermissionById() {
             try {
-                let { data } = await axios.get(API_URL + 'roles/' + this.$route.params.id);
-                this.model = data;
+                let { data } = await axios.get(API_URL + 'permissions/' + this.id);
+                this.model = {
+                   'name': data.name,
+                   'permissionkey' : data.key,
+                   'permissiontype' : data.type
+                };
             } catch (e) {
                 Notify.error('Something went wrong.');
                 this.$router.push({ path: '/index' });
