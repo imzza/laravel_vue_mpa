@@ -39,7 +39,6 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 
 export default {
     name: 'Add',
-
     data() {
         return {
             busy: false,
@@ -61,7 +60,7 @@ export default {
                         self.model,
                         data => {
                             self.busy = false;
-                            self.$router.push({ name: 'index' });
+                            self.$router.push({ path: '/permissions/index' });
                             Notify.success('Permission Updated Successfully!')
                         },
                         err => {
@@ -84,7 +83,7 @@ export default {
                 };
             } catch (e) {
                 Notify.error('Something went wrong.');
-                this.$router.push({ path: '/index' });
+                this.$router.push({ path: '/permissions/index' });
                 console.log(e.response);
             }
         },
