@@ -55,7 +55,7 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-                    Permission.update(
+                    Permission.updatePermission(
                         this.id,
                         self.model,
                         data => {
@@ -67,7 +67,7 @@ export default {
                             self.busy = false;
                             console.log(err);
                             this.$setErrorsFromResponse(err);
-                            Notify.success('Fail, Permission Not Updated!');
+                            Notify.error('Fail, Permission Not Updated!');
                         }
                     );
                 }

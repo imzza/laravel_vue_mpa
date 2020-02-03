@@ -18,14 +18,15 @@
     </template>
     <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
       <div slot="actions-slot" slot-scope="props">
-        <div class="custom-actions">
+          <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)">
+            <i class="fa fa-eye" />
+          </button>
           <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
             <i class="fa fa-edit" />
           </button>
-          <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+          <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)">
             <i class="fa fa-trash" />
           </button>
-        </div>
       </div>
     </vuetable>
     <div class="vuetable-pagination">
@@ -41,9 +42,8 @@ import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 import Vue from 'vue'
-
-
 import Role from '~/api/role';
+
 export default {
   name: 'SampleComponent',
   components: {

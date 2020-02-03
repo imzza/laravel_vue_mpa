@@ -58,7 +58,7 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-                    Role.update(
+                    Role.updateRole(
                         this.id,
                         self.model,
                         data => {
@@ -70,7 +70,7 @@ export default {
                             self.busy = false;
                             console.log(err);
                             this.$setErrorsFromResponse(err);
-                            Notify.success('Fail, Role Not Updated!');
+                            Notify.error('Fail, Role Not Updated!');
                         }
                     );
                 }

@@ -62,14 +62,14 @@ export default {
     }),
     created() {},
     mounted() {
-        console.log(this.dta);
+        console.log("index > dta:",this.dta);
         // console.log('Hello Web');
         // axios.get(API_URL+'user').then(resp => {
         //     console.log(resp);
         // }).catch(err =>{
         //     console.log(err.response);
         // });
-        console.log(window.Permissions);
+        console.log("main component > window Permissions:",window.Permissions);
     },
     methods: {
         hello() {

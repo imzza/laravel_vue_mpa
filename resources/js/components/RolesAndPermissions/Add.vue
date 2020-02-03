@@ -32,7 +32,6 @@
   </div>
 </template>
 <script>
-// import User from '~/api/user'
 import Role from '~/api/role';
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
@@ -42,7 +41,6 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' })
 
 export default {
   name: 'Add',
-
   data () {
     return {
       busy: false,
@@ -50,7 +48,7 @@ export default {
     }
   },
   mounted () {
-    // User.all(data => {
+    // User.allRole(data => {
     //     console.log(data);
     // }, err =>{
     //     console.log(err);
@@ -80,7 +78,7 @@ export default {
           console.log("result:",result);
           self.busy = true
           console.log(self.model)
-          Role.save(
+          Role.saveRole(
             self.model,
             data => {
               self.busy = false

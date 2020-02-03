@@ -18,17 +18,15 @@
     </template>
     <vuetable ref="vuetable" :api-url="`${ApiUrl}permissions`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
       <div slot="actions-slot" slot-scope="props">
-        <div class="custom-actions">
           <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)">
             <i class="fa fa-eye" />
           </button>
           <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
             <i class="fa fa-edit" />
           </button>
-          <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+          <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)">
             <i class="fa fa-trash" />
           </button>
-        </div>
       </div>
     </vuetable>
     <div class="vuetable-pagination">
@@ -142,7 +140,7 @@ export default {
   created () {
     EventBus.$on('DELETE_CONTACT', data => {
       console.log(data)
-      User.delete(
+      User.deletePermission(
         data.id,
         resp => {
           Notify.success('Deleted successfully')
@@ -167,7 +165,7 @@ export default {
     },
     deleteItem (id) {
       Notify.confirm().then(resp => {
-        Permission.delete(
+        Permission.deletePermission(
           id,
           resp => {
             Notify.success('Permission Deleted successfully!')
