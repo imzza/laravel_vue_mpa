@@ -45,7 +45,7 @@
                         <div class="form-group col-md-4">
                             <label for="state">State</label>
                             <select id="state" class="form-control form-control-lg" name="state" v-model="model.state" :class="{ 'is-invalid': errors.has('state') }" v-validate="'required'">
-                                <option v-for="(st) in states" :key="st.value" :value="st.value">{{ st.name }}</option>
+                                <option v-for="st in states" :key="st.value" :value="st.value">{{ st.name }}</option>
                             </select>
                             <span class="help text-danger" v-if="errors.has('state')">{{ errors.first('state') }}</span>
                         </div>
@@ -152,7 +152,7 @@ export default {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    Student.saveStudent(
+                    Student.save(
                         self.model,
                         data => {
                             self.busy = false;

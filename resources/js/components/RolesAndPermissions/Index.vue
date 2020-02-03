@@ -96,18 +96,12 @@ export default {
         ],
     }),
     created() {},
-    mounted() {
-        console.log("main compnenet >  dta:",this.dta);
-        console.log("index > window Permissions:",window.Permissions);
-    },
-    methods: {
-        hello() {
-            console.log('Hello Web');
-        },
-    },
+    mounted() {},
+    methods: {},
 };
 </script>
 <style lang="css" scoped>
-.btn-cus { min-width: 100px; }
+.btn-cus {
+    min-width: 100px;
+}
 </style>
-

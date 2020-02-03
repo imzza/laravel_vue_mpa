@@ -43,7 +43,7 @@ export default {
         return {
             busy: false,
             model: {},
-            id: this.$route.params.id
+            id: this.$route.params.id,
         };
     },
     mounted() {
@@ -55,13 +55,13 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-                    Permission.updatePermission(
+                    Permission.update(
                         this.id,
                         self.model,
                         data => {
                             self.busy = false;
                             self.$router.push({ path: '/permissions/index' });
-                            Notify.success('Permission Updated Successfully!')
+                            Notify.success('Permission Updated Successfully!');
                         },
                         err => {
                             self.busy = false;
@@ -77,9 +77,9 @@ export default {
             try {
                 let { data } = await axios.get(API_URL + 'permissions/' + this.id);
                 this.model = {
-                   'name': data.name,
-                   'permissionkey' : data.key,
-                   'permissiontype' : data.type
+                    name: data.name,
+                    permissionkey: data.key,
+                    permissiontype: data.type,
                 };
             } catch (e) {
                 Notify.error('Something went wrong.');

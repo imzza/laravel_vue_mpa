@@ -15,14 +15,13 @@
         </template>
 
         <vuetable ref="vuetable" :api-url="`${ApiUrl}students`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
-        <div slot="actions-slot" slot-scope="props">
-            <div class="custom-actions">
-                <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)"><i class="fa fa-eye"></i></button>
-                <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)"><i class="fa fa-trash"></i></button>
+            <div slot="actions-slot" slot-scope="props">
+                <div class="custom-actions">
+                    <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)"><i class="fa fa-eye"></i></button>
+                    <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)"><i class="fa fa-trash"></i></button>
+                </div>
             </div>
-        </div>
-
         </vuetable>
         <div class="vuetable-pagination">
             <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
@@ -104,7 +103,7 @@ export default {
                     callback: 'genderLabel',
                 },
                 {
-                    name: "__slot:actions-slot",
+                    name: '__slot:actions-slot',
                     title: 'Actions',
                     titleClass: 'text-center',
                     dataClass: 'text-center',
@@ -160,9 +159,9 @@ export default {
             Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
 
-        deleteItem(id){
+        deleteItem(id) {
             Notify.confirm().then(resp => {
-                Student.deleteStudent(
+                Student.delete(
                     id,
                     resp => {
                         Notify.success('Deleted successfully');
@@ -205,9 +204,7 @@ export default {
                 .get(API_URL + 'students')
                 .then(resp => {
                     if (resp.status == 200) {
-                        console.log("resp:",resp);
                     } else {
-                        console.log('error');
                     }
                 })
                 .catch(err => {
@@ -215,27 +212,13 @@ export default {
                 });
         },
     },
-    // events: {
-    //     'filter-set'(filterText) {
-    //         this.moreParams = {
-    //             filter: filterText,
-    //         };
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    //     'filter-reset'() {
-    //         this.moreParams = {};
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    // },
     computed: {
         ApiUrl() {
             return API_URL;
         },
     },
-    created() {
-    },
-    destroyed() {
-    },
+    created() {},
+    destroyed() {},
 };
 </script>
 <style>
@@ -268,8 +251,6 @@ export default {
     font-weight: bold;
     color: #000;
 }
-
-
 
 .cust-label {
     font-weight: bold;

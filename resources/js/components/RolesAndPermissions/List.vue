@@ -7,7 +7,7 @@
                         <form class="form-inline">
                             <div class="form-group d-flex justify-content-end w-100">
                                 <label class="cust-label">Search for:</label>
-                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter">
+                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter" />
                                 <button class="btn btn-primary w10" @click.prevent="doFilter">
                                     Go
                                 </button>
@@ -41,13 +41,12 @@
         </div>
     </section>
 </template>
-<!--/api/v1/employees_all vuetable.ratiw.net/api/users -->
 <script>
-import moment from 'moment'
-import Vuetable from 'vuetable-2/src/components/Vuetable'
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-import Vue from 'vue'
+import moment from 'moment';
+import Vuetable from 'vuetable-2/src/components/Vuetable';
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
+import Vue from 'vue';
 import Role from '~/api/role';
 
 export default {
@@ -55,44 +54,45 @@ export default {
     components: {
         Vuetable,
         VuetablePagination,
-        VuetablePaginationInfo
+        VuetablePaginationInfo,
     },
     data() {
         return {
             filterText: '',
-            flds: [{
+            flds: [
+                {
                     name: '__sequence',
                     title: '#',
                     titleClass: 'text-right',
-                    dataClass: 'text-right'
+                    dataClass: 'text-right',
                 },
                 {
                     name: 'name',
                     title: 'Role Name',
-                    sortField: 'name'
+                    sortField: 'name',
                 },
                 {
                     name: 'rolename',
                     title: 'Role Display Name',
-                    sortField: 'rolename'
+                    sortField: 'rolename',
                 },
                 {
                     name: 'role_descrip',
                     title: 'Description',
-                    sortField: 'role_descrip'
+                    sortField: 'role_descrip',
                 },
                 {
                     name: '__slot:actions-slot',
                     title: 'Actions',
                     titleClass: 'text-center',
-                    dataClass: 'text-center'
-                }
+                    dataClass: 'text-center',
+                },
             ],
             css: {
                 table: {
                     tableClass: 'table table-bordered table-striped table-hover',
                     ascendingIcon: 'fa fa-chevron-up',
-                    descendingIcon: 'fa fa-chevron-down'
+                    descendingIcon: 'fa fa-chevron-down',
                 },
                 pagination: {
                     wrapperClass: 'pagination',
@@ -104,61 +104,49 @@ export default {
                         first: '',
                         prev: '',
                         next: '',
-                        last: ''
-                    }
+                        last: '',
+                    },
                 },
                 icons: {
                     first: 'fa fa-step-backward',
                     prev: 'fa fa-chevron-left',
                     next: 'fa fa-chevron-right',
-                    last: 'fa fa-step-forward'
-                }
+                    last: 'fa fa-step-forward',
+                },
             },
             sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
-            moreParams: {}
-        }
+            moreParams: {},
+        };
     },
-    // events: {
-    //     'filter-set'(filterText) {
-    //         this.moreParams = {
-    //             filter: filterText,
-    //         };
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    //     'filter-reset'() {
-    //         this.moreParams = {};
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    // },
     computed: {
         ApiUrl() {
-            return API_URL
-        }
+            return API_URL;
+        },
     },
     created() {
         EventBus.$on('DELETE_CONTACT', data => {
-            console.log(data)
+            console.log(data);
             Role.delete(
                 data.id,
                 resp => {
-                    Notify.success('Deleted successfully')
-                    this.$refs.vuetable.refresh()
+                    Notify.success('Deleted successfully');
+                    this.$refs.vuetable.refresh();
                 },
                 err => {
-                    Notify.error('Something went wrong')
+                    Notify.error('Something went wrong');
                 }
-            )
-        })
+            );
+        });
     },
     destroyed() {
-        EventBus.$on('DELETE_CONTACT')
+        EventBus.$on('DELETE_CONTACT');
     },
     methods: {
         itemAction(action, data) {
             if (action == 'edit') {
-                this.$router.push({ path: '/edit/' + data })
+                this.$router.push({ path: '/edit/' + data });
             } else if (action == 'view') {
-                alert('View')
+                alert('View');
             } else if (action == 'assign') {
                 this.$router.push({ path: '/assign/' + data });
             }
@@ -168,45 +156,45 @@ export default {
                 Role.delete(
                     id,
                     resp => {
-                        Notify.success('Role Deleted successfully!')
-                        this.$refs.vuetable.refresh()
+                        Notify.success('Role Deleted successfully!');
+                        this.$refs.vuetable.refresh();
                     },
                     err => {
-                        Notify.error('Fail, Role Not Deleted!')
+                        Notify.error('Fail, Role Not Deleted!');
                     }
-                )
-            })
+                );
+            });
         },
         doFilter() {
             this.moreParams = {
-                filter: this.filterText
-            }
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
+                filter: this.filterText,
+            };
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
         resetFilter() {
-            this.filterText = ''
-            this.moreParams = {}
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
+            this.filterText = '';
+            this.moreParams = {};
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
 
         myFetch(apiUrl, httpOptions) {
-            return axios.get(apiUrl, httpOptions)
+            return axios.get(apiUrl, httpOptions);
         },
         allcap(value) {
-            return value.toUpperCase()
+            return value.toUpperCase();
         },
         formatNumber(value) {
-            return value, 2
+            return value, 2;
         },
         formatDate(value, fmt = 'D MMM YYYY') {
-            return value == null ? '' : moment(value, 'YYYY-MM-DD').format(fmt)
+            return value == null ? '' : moment(value, 'YYYY-MM-DD').format(fmt);
         },
         onPaginationData(paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData)
-            this.$refs.paginationInfo.setPaginationData(paginationData)
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
         },
         onChangePage(page) {
-            this.$refs.vuetable.changePage(page)
+            this.$refs.vuetable.changePage(page);
         },
         onCellClicked(data, field, event) {
             // console.log('cellClicked: ', field.name)
@@ -217,18 +205,17 @@ export default {
                 .get(API_URL + 'students')
                 .then(resp => {
                     if (resp.status == 200) {
-                        console.log(resp)
+                        console.log(resp);
                     } else {
-                        console.log('error')
+                        console.log('error');
                     }
                 })
                 .catch(err => {
-                    console.log('error')
-                })
-        }
-    }
-}
-
+                    console.log('error');
+                });
+        },
+    },
+};
 </script>
 <style>
 .vuetable-empty-result {
@@ -286,5 +273,4 @@ export default {
     border-radius: 0px;
     background-color: inherit;
 }
-
 </style>

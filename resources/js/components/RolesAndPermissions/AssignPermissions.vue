@@ -29,7 +29,6 @@
                                     <label class="small-text">
                                         <input v-model="rolePerms" type="checkbox" :data-id="`${child.id}`" :true-value="child.id" :value="child.id" />
                                         {{ child.key }}
-                                        <!-- v-model="model.checkedItems" -->
                                     </label>
                                 </div>
                             </span>
@@ -51,7 +50,7 @@
     </div>
 </template>
 <script>
-    // import Vue from "vue";
+// import Vue from "vue";
 // var moment = require("moment");
 import Role from '~/api/role.js';
 import Permission from '~/api/permission.js';
@@ -61,8 +60,8 @@ export default {
     components: {},
     data() {
         return {
+            busy: false,
             model: {
-                busy: false,
                 selected_role: '',
                 roles: [],
                 all_perms: [],
@@ -100,26 +99,25 @@ export default {
         },
         viewRoles() {
             const self = this;
-            Role.viewRoles(
+            Role.view(
                 data => {
                     self.model.roles = data;
-                    Notify.success('view_roles');
+                    // Notify.success('view_roles');
                 },
                 err => {
-                   // Notify.error(err);
-                    console.log("assignP > viewRoles:",err);
+                    // Notify.error(err);
+                    console.log('assignP > viewRoles:', err);
                 }
             );
         },
         getPermissions() {
-            console.log("getPermissions called");
             const self = this;
             Permission.permission_by_group(
                 data => {
                     self.model.all_perms = data;
                 },
                 err => {
-                    console.log("assignP > getPermissions:",err);
+                    console.log('assignP > getPermissions:', err);
                 }
             );
         },
@@ -154,7 +152,7 @@ export default {
                     Notify.success(data.message);
                 },
                 err => {
-                     Notify.error("Fail, Permission not assigned!");
+                    Notify.error('Fail, Permission not assigned!');
                 }
             );
         },
@@ -166,5 +164,4 @@ export default {
 .radio label input[type='radio'] {
     display: inline-block !important;
 }
-
 </style>

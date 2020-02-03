@@ -7,7 +7,7 @@
                         <form class="form-inline">
                             <div class="form-group d-flex justify-content-end w-100">
                                 <label class="cust-label">Search for:</label>
-                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter">
+                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter" />
                                 <button class="btn btn-primary w10" @click.prevent="doFilter">
                                     Go
                                 </button>
@@ -40,108 +40,108 @@
             </div>
         </div>
     </section>
-
 </template>
 <script>
-import moment from 'moment'
-import Vuetable from 'vuetable-2/src/components/Vuetable'
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-import Vue from 'vue'
+import moment from 'moment';
+import Vuetable from 'vuetable-2/src/components/Vuetable';
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
+import Vue from 'vue';
 import Permission from '~/api/permission';
 
 export default {
-  name: 'ListPermissions',
-  components: {
-    Vuetable,
-    VuetablePagination,
-    VuetablePaginationInfo
-  },
-  data () {
-    return {
-      filterText: '',
-      flds: [{
-        name: '__sequence',
-        title: '#',
-        titleClass: 'text-right',
-        dataClass: 'text-right'
-      },
-      {
-        name: 'name',
-        title: 'Permission Name',
-        sortField: 'name'
-      },
-      {
-        name: 'key',
-        title: 'Permission Key',
-        sortField: 'key'
-      },
-      {
-        name: 'type',
-        title: 'Permission Type',
-        sortField: 'type'
-      },
-      {
-        name: 'created_at',
-        title: 'Created',
-        sortField: 'created_at',
-        titleClass: 'text-center',
-        dataClass: 'text-center',
-        callback: 'formatDate|DD-MM-YYYY'
-      },
-      {
-        name: '__slot:actions-slot',
-        title: 'Actions',
-        titleClass: 'text-center',
-        dataClass: 'text-center'
-      }
-      ],
-      css: {
-        table: {
-          tableClass: 'table table-bordered table-striped table-hover',
-          ascendingIcon: 'fa fa-chevron-up',
-          descendingIcon: 'fa fa-chevron-down'
-        },
-        pagination: {
-          wrapperClass: 'pagination',
-          activeClass: 'active',
-          disabledClass: 'disabled',
-          pageClass: 'page',
-          linkClass: 'link',
-          icons: {
-            first: '',
-            prev: '',
-            next: '',
-            last: ''
-          }
-        },
-        icons: {
-          first: 'fa fa-step-backward',
-          prev: 'fa fa-chevron-left',
-          next: 'fa fa-chevron-right',
-          last: 'fa fa-step-forward'
-        }
-      },
-      sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
-      moreParams: {}
-    }
-  },
+    name: 'ListPermissions',
+    components: {
+        Vuetable,
+        VuetablePagination,
+        VuetablePaginationInfo,
+    },
+    data() {
+        return {
+            filterText: '',
+            flds: [
+                {
+                    name: '__sequence',
+                    title: '#',
+                    titleClass: 'text-right',
+                    dataClass: 'text-right',
+                },
+                {
+                    name: 'name',
+                    title: 'Permission Name',
+                    sortField: 'name',
+                },
+                {
+                    name: 'key',
+                    title: 'Permission Key',
+                    sortField: 'key',
+                },
+                {
+                    name: 'type',
+                    title: 'Permission Type',
+                    sortField: 'type',
+                },
+                {
+                    name: 'created_at',
+                    title: 'Created',
+                    sortField: 'created_at',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center',
+                    callback: 'formatDate|DD-MM-YYYY',
+                },
+                {
+                    name: '__slot:actions-slot',
+                    title: 'Actions',
+                    titleClass: 'text-center',
+                    dataClass: 'text-center',
+                },
+            ],
+            css: {
+                table: {
+                    tableClass: 'table table-bordered table-striped table-hover',
+                    ascendingIcon: 'fa fa-chevron-up',
+                    descendingIcon: 'fa fa-chevron-down',
+                },
+                pagination: {
+                    wrapperClass: 'pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    pageClass: 'page',
+                    linkClass: 'link',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: '',
+                    },
+                },
+                icons: {
+                    first: 'fa fa-step-backward',
+                    prev: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    last: 'fa fa-step-forward',
+                },
+            },
+            sortOrder: [{ field: 'id', sortField: 'id', direction: 'asc' }],
+            moreParams: {},
+        };
+    },
 
-  computed: {
-    ApiUrl () {
-      return API_URL
-    }
-  },
+    computed: {
+        ApiUrl() {
+            return API_URL;
+        },
+    },
 
     destroyed() {
-        EventBus.$on('DELETE_CONTACT')
+        EventBus.$on('DELETE_CONTACT');
     },
     methods: {
         itemAction(action, data) {
             if (action == 'edit') {
-                this.$router.push({ path: '/permissions/edit/' + data })
+                this.$router.push({ path: '/permissions/edit/' + data });
             } else if (action == 'view') {
-                alert('View')
+                alert('View');
             }
         },
         deleteItem(id) {
@@ -149,46 +149,46 @@ export default {
                 Permission.delete(
                     id,
                     resp => {
-                        Notify.success('Permission Deleted successfully!')
-                        this.$refs.vuetable.refresh()
+                        Notify.success('Permission Deleted successfully!');
+                        this.$refs.vuetable.refresh();
                     },
                     err => {
-                        Notify.error('Fail, Permission not deleted!')
+                        Notify.error('Fail, Permission not deleted!');
                     }
-                )
-            })
+                );
+            });
         },
 
         doFilter() {
             this.moreParams = {
-                filter: this.filterText
-            }
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
+                filter: this.filterText,
+            };
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
         resetFilter() {
-            this.filterText = ''
-            this.moreParams = {}
-            Vue.nextTick(() => this.$refs.vuetable.refresh())
+            this.filterText = '';
+            this.moreParams = {};
+            Vue.nextTick(() => this.$refs.vuetable.refresh());
         },
 
         myFetch(apiUrl, httpOptions) {
-            return axios.get(apiUrl, httpOptions)
+            return axios.get(apiUrl, httpOptions);
         },
         allcap(value) {
-            return value.toUpperCase()
+            return value.toUpperCase();
         },
         formatNumber(value) {
-            return value, 2
+            return value, 2;
         },
         formatDate(value, fmt = 'D MMM YYYY') {
-            return value == null ? '' : new Date(value).toLocaleDateString()
+            return value == null ? '' : new Date(value).toLocaleDateString();
         },
         onPaginationData(paginationData) {
-            this.$refs.pagination.setPaginationData(paginationData)
-            this.$refs.paginationInfo.setPaginationData(paginationData)
+            this.$refs.pagination.setPaginationData(paginationData);
+            this.$refs.paginationInfo.setPaginationData(paginationData);
         },
         onChangePage(page) {
-            this.$refs.vuetable.changePage(page)
+            this.$refs.vuetable.changePage(page);
         },
         onCellClicked(data, field, event) {
             // console.log('cellClicked: ', field.name)
@@ -199,18 +199,17 @@ export default {
                 .get(API_URL + 'students')
                 .then(resp => {
                     if (resp.status == 200) {
-                        console.log(resp)
+                        console.log(resp);
                     } else {
-                        console.log('error')
+                        console.log('error');
                     }
                 })
                 .catch(err => {
-                    console.log('error')
-                })
-        }
-    }
-}
-
+                    console.log('error');
+                });
+        },
+    },
+};
 </script>
 <style>
 .vuetable-empty-result {
@@ -268,5 +267,4 @@ export default {
     border-radius: 0px;
     background-color: inherit;
 }
-
 </style>

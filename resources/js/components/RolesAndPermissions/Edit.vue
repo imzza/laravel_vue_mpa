@@ -44,8 +44,7 @@ export default {
         return {
             busy: false,
             model: {},
-            id: this.$route.params.id
-
+            id: this.$route.params.id,
         };
     },
     mounted() {
@@ -58,7 +57,7 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-                    Role.updateRole(
+                    Role.update(
                         this.id,
                         self.model,
                         data => {
@@ -84,12 +83,12 @@ export default {
                     id: data.id,
                     name: data.name,
                     rolename: data.rolename,
-                    roledescription: data.role_descrip
+                    roledescription: data.role_descrip,
                 };
             } catch (e) {
                 Notify.error('Something went wrong.');
                 this.$router.push({ path: '/index' });
-                console.log("e:",e.response);
+                console.log('e:', e.response);
             }
         },
     },
