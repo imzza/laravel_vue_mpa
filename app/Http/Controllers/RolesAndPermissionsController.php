@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 
 class RolesAndPermissionsController extends Controller
@@ -17,6 +18,10 @@ class RolesAndPermissionsController extends Controller
     public function index()
     {
         return view('RolesAndPermissions.index');
+    }
+
+    public function viewRoles(Request $request) {
+        return response()->json(Role::with('permissions')->get(), 200);
     }
 
     /**
@@ -100,29 +105,31 @@ class RolesAndPermissionsController extends Controller
     public function updateRole(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:roles,name,'.$id,
             'rolename' => 'required|min:3',
-            'roledescription' => 'required',
+            'roledescription' => 'required'
         ]);
         $updateRoleData = array(
             'name' => $request->name,
             'rolename' => $request->rolename,
             'role_descrip' => $request->roledescription
         );
+
         $affectedRows = Role::where('id', '=', $id)->update($updateRoleData);
         if ($affectedRows) {
             return response()->json($affectedRows, 201);
         } else {
             return response()->json(['message' => 'Bad Request'], 400);
         }   
+        
     }
 
     public function updatePermission(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
-            'permissionkey' => 'required',
-            'permissiontype' => 'required',
+            'permissionkey' => 'required|unique:permissions,key,'.$id,
+            'permissiontype' => 'required'
         ]);
         $updatePermissionData = array(
             'name' => $request->name,
@@ -196,4 +203,38 @@ class RolesAndPermissionsController extends Controller
         return response()->json($result, 200);
 
     }
+
+    public function permission_by_group() {
+        $permissions = Permission::all();
+        $parrent = [];
+        foreach ($permissions as $perm) {
+            if (!array_key_exists($perm['type'], $parrent)) {
+                // checking if key not exist in array
+                $parrent[$perm['type']] = [];
+            }
+            $parrent[$perm['type']][] = $perm;
+        }
+        if ($permissions) {
+            return response()->json($parrent, 200);
+        } else {
+            return response()->json(null, 204);
+        }
+    }
+
+    public function permission_by_role(Role $role) {
+        $permissions = $role->permissions->toArray();
+        $permissions = array_column($permissions, 'id');
+        return response()->json($permissions, 200);
+    }
+
+    public function roles_assign_permissions(Request $request) {
+        $role = Role::find($request->id);
+        $assign = $role->syncPermissions($request->permissions);
+        if ($assign) {
+            return response()->json(['message' => 'Permissions assigned.'], 200);
+        } else {
+            return response()->json(['message' => 'Something went wrong'], 400);
+        }
+    }
+
 }

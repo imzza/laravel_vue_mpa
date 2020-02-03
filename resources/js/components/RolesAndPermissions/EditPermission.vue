@@ -39,7 +39,6 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 
 export default {
     name: 'Add',
-
     data() {
         return {
             busy: false,
@@ -56,19 +55,19 @@ export default {
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
-                    Permission.update(
+                    Permission.updatePermission(
                         this.id,
                         self.model,
                         data => {
                             self.busy = false;
-                            self.$router.push({ name: 'index' });
+                            self.$router.push({ path: '/permissions/index' });
                             Notify.success('Permission Updated Successfully!')
                         },
                         err => {
                             self.busy = false;
                             console.log(err);
                             this.$setErrorsFromResponse(err);
-                            Notify.success('Fail, Permission Not Updated!');
+                            Notify.error('Fail, Permission Not Updated!');
                         }
                     );
                 }

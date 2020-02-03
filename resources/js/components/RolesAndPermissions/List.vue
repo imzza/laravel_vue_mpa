@@ -18,14 +18,15 @@
     </template>
     <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
       <div slot="actions-slot" slot-scope="props">
-        <div class="custom-actions">
+          <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)">
+            <i class="fa fa-eye" />
+          </button>
           <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
             <i class="fa fa-edit" />
           </button>
-          <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+          <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)">
             <i class="fa fa-trash" />
           </button>
-        </div>
       </div>
     </vuetable>
     <div class="vuetable-pagination">
@@ -48,7 +49,6 @@ import CustomActions from './CustomActions'
 // import DetailRow from './DetailRow';
 import FilterBar from './FilterBar'
 
-// Vue.component('custom-actions', CustomActions);
 // Vue.component('filter-bar', FilterBar);
 
 import Role from '~/api/role';
@@ -59,8 +59,7 @@ export default {
   components: {
     Vuetable,
     VuetablePagination,
-    VuetablePaginationInfo,
-    'custom-actions': CustomActions
+    VuetablePaginationInfo
   },
   data () {
     return {
@@ -88,10 +87,10 @@ export default {
           sortField: 'role_descrip'
         },
         {
-          name: '__component:custom-actions',
-          title: 'Actions',
-          titleClass: 'text-center',
-          dataClass: 'text-center'
+        name: '__slot:actions-slot',
+        title: 'Actions',
+        titleClass: 'text-center',
+        dataClass: 'text-center'
         }
       ],
       css: {

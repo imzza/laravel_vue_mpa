@@ -6,7 +6,7 @@
     <button class="btn btn-primary btn-sm" @click="itemAction('edit', rowData, rowIndex)">
       <i class="fa fa-pencil" />
     </button>
-    <button class="btn btn-primary btn-sm" @click="itemAction('delete', rowData, rowIndex)">
+    <button class="btn btn-danger btn-sm" @click="itemAction('delete', rowData, rowIndex)">
       <i class="fa fa-trash" />
     </button>
   </div>

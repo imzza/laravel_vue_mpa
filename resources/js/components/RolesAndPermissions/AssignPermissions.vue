@@ -11,7 +11,7 @@
                             <option value selected>
                                 Select
                             </option>
-                            <option v-for="data in model.roles" :value="data.id">
+                            <option v-for="data in model.roles" :value="data.id" :key="data.id">
                                 {{ data.name }}
                             </option>
                         </select>
@@ -26,7 +26,7 @@
                         <label for="all">Select All</label><input id="all" type="checkbox" name="all" :checked="rolePerms.length == model.all_perms" @click="all($event)" />
                         <div v-for="(data, index) in model.all_perms" :key="index" class="collapseable_sec">
                             <h5>{{ index }}</h5>
-                            <span v-for="child in data">
+                            <span v-for="child in data" :key="child.id">
                                 <div class="checkbox">
                                     <label class="small-text">
                                         <input v-model="rolePerms" type="checkbox" :data-id="`${child.id}`" :true-value="child.id" :value="child.id" />
@@ -52,8 +52,8 @@
 <script>
 // import Vue from "vue";
 // var moment = require("moment");
-import roles from '~/api/role.js';
-// import permissions from '~/api/permissions.js';
+import Role from '~/api/role.js';
+import Permission from '~/api/permission.js';
 
 export default {
     name: 'PermissionsAssign',
@@ -68,7 +68,6 @@ export default {
             rolePerms: [],
         };
     },
-    created() {},
     mounted() {
         this.viewRoles();
         this.getPermissions();
@@ -99,24 +98,26 @@ export default {
         },
         viewRoles() {
             const self = this;
-            roles.view_roles(
+            Role.viewRoles(
                 data => {
                     self.model.roles = data;
-                    Notify.success('');
+                    Notify.success('view_roles');
                 },
                 err => {
-                    Notify.error(err.response.data.message);
+                   // Notify.error(err);
+                    console.log("assignP > viewRoles:",err);
                 }
             );
         },
         getPermissions() {
+            console.log("getPermissions called");
             const self = this;
-            permissions.permission_by_group(
+            Permission.permission_by_group(
                 data => {
                     self.model.all_perms = data;
                 },
                 err => {
-                    console.log(err);
+                    console.log("assignP > getPermissions:",err);
                 }
             );
         },
@@ -126,7 +127,7 @@ export default {
                 self.rolePerms = [];
                 return false;
             }
-            permissions.permission_by_role(
+            Permission.permission_by_role(
                 id,
                 data => {
                     self.rolePerms = data;
@@ -144,16 +145,14 @@ export default {
                 return false;
             }
             const id = self.model.selected_role;
-            roles.assign_permissions(
+            Role.assign_permissions(
                 id,
                 self.rolePerms,
                 data => {
-                    console.log('Hi');
-                    self.$store.dispatch('permissions');
                     Notify.success(data.message);
                 },
                 err => {
-                    console.log(err.response.data);
+                     Notify.error("Fail, Permission not assigned!");
                 }
             );
         },

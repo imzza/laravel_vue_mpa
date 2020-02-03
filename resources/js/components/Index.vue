@@ -19,7 +19,7 @@
             <div class="custom-actions">
                 <button v-if="$can('departments_delet')" class="btn btn-primary btn-sm" @click="itemAction('view', props.rowData.id)"><i class="fa fa-eye"></i></button>
                 <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)"><i class="fa fa-edit"></i></button>
-                <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-danger btn-sm" @click="deleteItem(props.rowData.id)"><i class="fa fa-trash"></i></button>
             </div>
         </div>
 
@@ -43,9 +43,7 @@ import Vue from 'vue';
 // import FilterBar from './Table/FilterBar';
 // Vue.use(VueEvents);
 
-
-
-import User from '~/api/user.js';
+import Student from '~/api/student';
 export default {
     name: 'SampleComponent',
     components: {
@@ -169,7 +167,7 @@ export default {
 
         deleteItem(id){
             Notify.confirm().then(resp => {
-                User.delete(
+                Student.deleteStudent(
                     id,
                     resp => {
                         Notify.success('Deleted successfully');
