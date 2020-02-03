@@ -111,7 +111,7 @@ export default {
             ],
             css: {
                 table: {
-                    tableClass: 'table table-bordered table-striped table-hover',
+                    tableClass: 'table table-bordered',
                     ascendingIcon: 'fa fa-chevron-up',
                     descendingIcon: 'fa fa-chevron-down',
                 },

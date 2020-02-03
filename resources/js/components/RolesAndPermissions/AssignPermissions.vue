@@ -2,55 +2,58 @@
     <div>
         <!-- Content Header (Page header) -->
         <section class="content-header mb-4">
-            <b-card tag="article" class="mb-2">
-                <h3>Assign Permissions To Roles</h3>
-
-                <div class="row justify-content-center">
-                    <div class="col-5">
-                        <select id="roles_select" v-model="model.selected_role" name="selected_role" class="form-control select-background" size="1" @change="getRolePer(model.selected_role)">
-                            <option value selected>
-                                Select
-                            </option>
-                            <option v-for="data in model.roles" :value="data.id">
-                                {{ data.name }}
-                            </option>
-                        </select>
+            <div class="card mt-4 border-0">
+                <div class="card-body">
+                    <h3>Assign Permissions To Roles</h3>
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <select id="roles_select" v-model="model.selected_role" name="selected_role" class="form-control select-background" size="1" @change="getRolePer(model.selected_role)">
+                                <option value selected>
+                                    Select
+                                </option>
+                                <option v-for="data in model.roles" :value="data.id">
+                                    {{ data.name }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h4 class="mb-4">
-                            Permission Modules
-                        </h4>
-                        <label for="all">Select All</label><input id="all" type="checkbox" name="all" :checked="rolePerms.length == model.all_perms" @click="all($event)" />
-                        <div v-for="(data, index) in model.all_perms" :key="index" class="collapseable_sec">
-                            <h5>{{ index }}</h5>
-                            <span v-for="child in data">
-                                <div class="checkbox">
-                                    <label class="small-text">
-                                        <input v-model="rolePerms" type="checkbox" :data-id="`${child.id}`" :true-value="child.id" :value="child.id" />
-                                        {{ child.key }}
-                                        <!-- v-model="model.checkedItems" -->
-                                    </label>
-                                </div>
-                            </span>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4 class="mb-4">
+                                Permission Modules
+                            </h4>
+                            <label for="all">Select All</label><input id="all" type="checkbox" name="all" :checked="rolePerms.length == model.all_perms" @click="all($event)" />
+                            <div v-for="(data, index) in model.all_perms" :key="index" class="collapseable_sec">
+                                <h5>{{ index }}</h5>
+                                <span v-for="child in data">
+                                    <div class="checkbox">
+                                        <label class="small-text">
+                                            <input v-model="rolePerms" type="checkbox" :data-id="`${child.id}`" :true-value="child.id" :value="child.id" />
+                                            {{ child.key }}
+                                            <!-- v-model="model.checkedItems" -->
+                                        </label>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                          <!--   <button type="submit" class="btn btn-primary btn-block" @click="assignPermissions">
+                                Submit
+                            </button> -->
+                            <v-button class="btn btn-primary btn-block" :loading="busy" v-on:click="assignPermissions">
+                            Submit
+                        </v-button>
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block" @click="assignPermissions">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </b-card>
+            </div>
         </section>
     </div>
 </template>
 <script>
-// import Vue from "vue";
+    // import Vue from "vue";
 // var moment = require("moment");
 import roles from '~/api/role.js';
 // import permissions from '~/api/permissions.js';
@@ -61,6 +64,7 @@ export default {
     data() {
         return {
             model: {
+                busy: false,
                 selected_role: '',
                 roles: [],
                 all_perms: [],
@@ -160,10 +164,10 @@ export default {
     },
 };
 </script>
-
 <style type="text/css" scoped lang="scss">
 .checkbox label input[type='checkbox'],
 .radio label input[type='radio'] {
     display: inline-block !important;
 }
+
 </style>
