@@ -42,18 +42,8 @@ import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 import Vue from 'vue'
-
-import VueEvents from 'vue-events'
-
-import CustomActions from './CustomActions'
-// import DetailRow from './DetailRow';
-import FilterBar from './FilterBar'
-
-// Vue.component('filter-bar', FilterBar);
-
 import Role from '~/api/role';
 
-Vue.use(VueEvents)
 export default {
   name: 'SampleComponent',
   components: {
@@ -87,10 +77,10 @@ export default {
           sortField: 'role_descrip'
         },
         {
-        name: '__slot:actions-slot',
-        title: 'Actions',
-        titleClass: 'text-center',
-        dataClass: 'text-center'
+          name: '__slot:actions-slot',
+          title: 'Actions',
+          titleClass: 'text-center',
+          dataClass: 'text-center'
         }
       ],
       css: {

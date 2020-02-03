@@ -37,13 +37,8 @@ import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
 import Vue from 'vue';
 
-// import VueEvents from 'vue-events';
-// import CustomActions from './Table/CustomActions';
-// import DetailRow from './Table/DetailRow';
-// import FilterBar from './Table/FilterBar';
-// Vue.use(VueEvents);
-
 import Student from '~/api/student';
+
 export default {
     name: 'SampleComponent',
     components: {

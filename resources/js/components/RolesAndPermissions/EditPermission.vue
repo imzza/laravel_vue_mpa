@@ -83,7 +83,7 @@ export default {
                 };
             } catch (e) {
                 Notify.error('Something went wrong.');
-                this.$router.push({ path: '/index' });
+                this.$router.push({ path: '/permissions/index' });
                 console.log(e.response);
             }
         },
