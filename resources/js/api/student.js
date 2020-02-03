@@ -1,5 +1,5 @@
 const User = {
-  all (cb, errorCB) {
+  allStudent(cb, errorCB) {
     axios
       .get(API_URL + 'me')
       .then(resp => {
@@ -25,11 +25,11 @@ const User = {
         errorCB(err.response.data)
       })
   },
-  save (data, cb, errorCB) {
+  saveStudent (data, cb, errorCB) {
     axios
       .post(API_URL + 'students', data)
       .then(resp => {
-        console.log(resp)
+        console.log("saveUser:",resp);
         if (resp.status == 201) {
           cb(resp.data)
         }
@@ -38,11 +38,11 @@ const User = {
         errorCB(err.response.data)
       })
   },
-  getSingle (id, cb, errorCB) {
+  getSingleStudent (id, cb, errorCB) {
     axios
       .get(API_URL + 'students/' + id)
       .then(resp => {
-        console.log(resp)
+        console.log("getSingleUser:",resp)
         if (resp.status == 200) {
           cb(resp.data)
         }
@@ -51,11 +51,11 @@ const User = {
         errorCB(err.response.data)
       })
   },
-  update (id, data, cb, errorCB) {
+  updateStudent (id, data, cb, errorCB) {
     axios
       .put(API_URL + 'students/' + id, data)
       .then(resp => {
-        console.log(resp)
+        console.log("updateUser:",resp)
         if (resp.status == 200) {
           cb(resp.data)
         }
@@ -65,11 +65,11 @@ const User = {
       })
   },
 
-  delete (id, cb, errorCB) {
+  deleteStudent (id, cb, errorCB) {
     axios
       .delete(API_URL + 'students/' + id)
       .then(resp => {
-        console.log(resp)
+        console.log("deleteUser:",resp)
         if (resp.status == 204) {
           cb(resp.data)
         }

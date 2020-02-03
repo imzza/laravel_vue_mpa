@@ -48,9 +48,8 @@ import Vuetable from 'vuetable-2/src/components/Vuetable'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 import Vue from 'vue'
-
-
 import Role from '~/api/role';
+
 export default {
     name: 'SampleComponent',
     components: {

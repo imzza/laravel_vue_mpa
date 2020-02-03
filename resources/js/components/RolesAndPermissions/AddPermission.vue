@@ -33,7 +33,6 @@
 </template>
 <script>
 import Permission from '~/api/permission'
-
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 // Vue.use(VeeValidate);
@@ -50,7 +49,7 @@ export default {
     }
   },
   mounted () {
-    // Permission.all(data => {
+    // Permission.allPermission(data => {
     //     console.log(data);
     // }, err =>{
     //     console.log(err);
@@ -78,11 +77,11 @@ export default {
         if (result) {
           self.busy = true
           console.log(self.model)
-          Permission.save(
+          Permission.savePermission(
             self.model,
             data => {
               self.busy = false
-              self.$router.push({ name: 'index' })
+              self.$router.push({ path: '/permissions/index' })
               Notify.success('Permission Added Successfully!');
             },
             err => {

@@ -108,7 +108,7 @@
     </div>
 </template>
 <script>
-import User from '~/api/user';
+import Student from '~/api/student';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
@@ -136,7 +136,7 @@ export default {
     mounted() {
         console.log(this.$route);
         this.getStudent();
-        // User.all(data => {
+        // Student.allStudent(data => {
         //     console.log(data);
         // }, err =>{
         //     console.log(err);
@@ -166,7 +166,7 @@ export default {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    User.update(
+                    Student.updateStudent(
                         id,
                         self.model,
                         data => {
@@ -184,7 +184,7 @@ export default {
             });
         },
         getStudent() {
-            User.getSingle(
+            Student.getSingleStudent(
                 this.$route.params.id,
                 resp => {
                     this.model = resp;

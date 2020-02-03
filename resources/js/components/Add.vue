@@ -98,7 +98,7 @@
     </div>
 </template>
 <script>
-import User from '~/api/user';
+import Student from '~/api/student';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
@@ -124,7 +124,7 @@ export default {
         };
     },
     mounted() {
-        // User.all(data => {
+        // Student.allStudent(data => {
         //     console.log(data);
         // }, err =>{
         //     console.log(err);
@@ -152,16 +152,16 @@ export default {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    User.save(
+                    Student.saveStudent(
                         self.model,
                         data => {
                             self.busy = false;
                             self.$router.push({ name: 'index' });
-                            Notify.success('Oh No Scuuess ...');
+                            Notify.success('User added successfully!');
                         },
                         err => {
                             self.busy = false;
-                            console.log(err);
+                            Notify.error('Fail, User not added!');
                             this.$setErrorsFromResponse(err);
                         }
                     );

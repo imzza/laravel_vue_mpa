@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             msg: '',
-            // dta: _.cloneDeep(this.sdata),
+            dta: _.cloneDeep(this.sdata),
         };
     },
     router: new VueRouter({
@@ -97,8 +97,8 @@ export default {
     }),
     created() {},
     mounted() {
-        console.log(this.dta);
-        console.log(window.Permissions);
+        console.log("main compnenet >  dta:",this.dta);
+        console.log("index > window Permissions:",window.Permissions);
     },
     methods: {
         hello() {
@@ -107,5 +107,7 @@ export default {
     },
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
 .btn-cus { min-width: 100px; }
+</style>
+
