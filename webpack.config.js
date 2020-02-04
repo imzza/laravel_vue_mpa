@@ -228,7 +228,7 @@ module.exports = (env) => {
             new CleanWebpackPlugin(),
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
             new MiniCssExtractPlugin({
-                path: path.resolve(__dirname, 'dist/css'),
+                path: path.resolve(__dirname, './public/dist/css'),
                 filename: '[name].[contentHash].css',
                 chunkFilename: '[id].chunk.css',
             })
@@ -294,6 +294,9 @@ module.exports = (env) => {
             extensions: [
                 '.js',
                 '.json',
+                '.vue',
+                '.jsx',
+                '.tsx',
                 '*'
             ],
             alias: {
