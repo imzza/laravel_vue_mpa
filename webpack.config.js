@@ -38,14 +38,6 @@ module.exports = (env) => {
                         comments: false
                     }
                 }
-            }),
-            new HtmlWebpackPlugin({
-                template: 'src/app/index.html',
-                minify: {
-                    removeAttributeQuotes: true,
-                    collapseWhitespace: true,
-                    removeComments: true
-                }
             })
         ],
         minimize: true,
@@ -222,7 +214,7 @@ module.exports = (env) => {
                     });
 
                     fs.writeFileSync(
-                        path.resolve(__dirname, './public/mix-manifest.json'),
+                        path.resolve(__dirname, './public/dist/mix-manifest.json'),
                         JSON.stringify(assetCollection, null, 2),
                     );
                 },
@@ -231,26 +223,7 @@ module.exports = (env) => {
 
     ];
 
-    if (isDevelopment) {
-        let devPlugins = [new HtmlWebpackPlugin({
-                template: 'src/app/index.html',
-                // excludeChunks: [ 'dev-helper' ]
-                // 'base': 'http://example.com/some/page.html'
-                // title: "Test App"
-                filename: 'index.html',
-                favicon: 'src/app/images/download.png',
-                minify: false,
-                hash: true,
-                cache: false,
-                chunks: ['app']
-            }),
-
-            new HtmlWebpackPlugin({ template: 'src/app/sassest.html', filename: 'sass.html', chunks: ['sassest'] }),
-            new HtmlWebpackPlugin({ template: "src/app/vuejs.html", filename: 'vuejs.html', chunks: ['vueapp', 'app'] }),
-            new HtmlWebpackPlugin({ template: 'src/app/react.html', filename: 'react.html', chunks: ['react', 'app'] })
-        ];
-        plugins = plugins.concat(devPlugins);
-    } else {
+    if (!isDevelopment) {
         let prodPlugins = [
             new CleanWebpackPlugin(),
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -271,7 +244,7 @@ module.exports = (env) => {
             vendor: ['./resources/js/vendor.js', './resources/sass/style.scss']
         },
         output: {
-            path: path.resolve(__dirname, './public'),
+            path: path.resolve(__dirname, './public/dist'),
             // publicPath: '/',
             publicPath: '/laravel_vue_mpa/',
             filename: 'js/[name].[contentHash].bundle.js',
@@ -305,7 +278,7 @@ module.exports = (env) => {
 
         optimization: isDevelopment ? {} : optimization,
         devServer: {
-            contentBase: path.join(__dirname, 'public'),
+            contentBase: path.join(__dirname, './public/dist'),
             compress: true,
             port: 9000,
             open: true,
