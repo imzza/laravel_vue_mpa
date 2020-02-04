@@ -11,6 +11,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
+const EventHooksPlugin = require('event-hooks-webpack-plugin');
+
 module.exports = (env) => {
     const isDevelopment = process.env.NODE_ENV === 'development';
     const devtool = isDevelopment ? "inline-source-map" : "source-map";
@@ -184,7 +186,49 @@ module.exports = (env) => {
     let plugins = [new webpack.ProgressPlugin(),
         new WebpackNotifierPlugin(),
         new FriendlyErrorsWebpackPlugin(),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+
+
+        new EventHooksPlugin({
+                done: stats => {
+                    const { time, errors, assets } = stats.toJson();
+
+                    // notifier.notify({
+                    //     title:
+                    //         errors.length > 0
+                    //             ? 'Build Failed'
+                    //             : 'Build Successful',
+                    //     message: `Completed in ${time}ms`,
+                    //     icon: path.resolve(
+                    //         __dirname,
+                    //         './public/android-chrome-512x512.png',
+                    //     ),
+                    //     sound: true,
+                    //     wait: true,
+                    // });
+
+                    let assetCollection = {};
+
+                    assets.forEach(({ name }) => {
+                        let ext = name.split('.').reverse()[0];
+                        let key = `${name.substring(
+                            0,
+                            name.indexOf('.'),
+                        )}.${ext}`;
+
+                        Object.assign(assetCollection, {
+                            [key]: name,
+                        });
+                    });
+
+                    fs.writeFileSync(
+                        path.resolve(__dirname, './public/mix-manifest.json'),
+                        JSON.stringify(assetCollection, null, 2),
+                    );
+                },
+        }),
+
+
     ];
 
     if (isDevelopment) {
@@ -223,8 +267,8 @@ module.exports = (env) => {
     return ({
         mode: isDevelopment ? 'development' : 'production',
         entry: {
-            app: ['resources/js/app.js', 'resources/sass/app.scss'],
-            vendor: ['resources/js/vendor.js', 'resources/sass/style.scss']
+            app: ['./resources/js/app.js', './resources/sass/app.scss'],
+            vendor: ['./resources/js/vendor.js', './resources/sass/style.scss']
         },
         output: {
             path: path.resolve(__dirname, './public'),

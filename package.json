@@ -11,7 +11,10 @@
         "lint": "eslint --ext .js,.vue resources/assets",
         "lint-fix": "eslint --fix --ext .js,.vue resources/assets",
         "prettier": "./node_modules/.bin/prettier --write \"{,!(vendor|node_modules|public)/**/}*.{js,vue,scss,html}\" --print-width 1000  --tab-width 4 --single-quote --trailing-comma es5",
-        "pre-php": "./node_modules/.bin/prettier --write \"{,!(vendor|node_modules|public)/**/}*.php\" --print-width 200  --tab-width 4 --single-quote --trailing-comma-php none --brace-style 1tbs --parser php"
+        "pre-php": "./node_modules/.bin/prettier --write \"{,!(vendor|node_modules|public)/**/}*.php\" --print-width 200  --tab-width 4 --single-quote --trailing-comma-php none --brace-style 1tbs --parser php",
+        "wp-dev": "cross-env NODE_ENV=development node_modules/.bin/webpack --env dev --progress --hide-modules --colors",
+        "wp-watch": "npm run wp-dev -- --watch",
+        "wp-prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --env prod --no-progress --hide-modules --colors"
     },
     "devDependencies": {
         "@babel/core": "^7.8.4",
@@ -40,6 +43,7 @@
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-standard": "^4.0.1",
         "eslint-plugin-vue": "^6.1.2",
+        "event-hooks-webpack-plugin": "^2.1.5",
         "file-loader": "^5.0.2",
         "friendly-errors-webpack-plugin": "^1.7.0",
         "html-loader": "^0.5.5",

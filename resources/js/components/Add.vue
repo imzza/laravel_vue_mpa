@@ -45,7 +45,7 @@
                         <div class="form-group col-md-4">
                             <label for="state">State</label>
                             <select id="state" class="form-control form-control-lg" name="state" v-model="model.state" :class="{ 'is-invalid': errors.has('state') }" v-validate="'required'">
-                                <option v-for="(st, ind) in states" :key="st.value" :value="st.value">{{ st.name }}</option>
+                                <option v-for="st in states" :key="st.value" :value="st.value">{{ st.name }}</option>
                             </select>
                             <span class="help text-danger" v-if="errors.has('state')">{{ errors.first('state') }}</span>
                         </div>
@@ -98,7 +98,7 @@
     </div>
 </template>
 <script>
-import User from '~/api/user';
+import Student from '~/api/student';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
@@ -124,7 +124,7 @@ export default {
         };
     },
     mounted() {
-        // User.all(data => {
+        // Student.allStudent(data => {
         //     console.log(data);
         // }, err =>{
         //     console.log(err);
@@ -152,16 +152,16 @@ export default {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    User.save(
+                    Student.save(
                         self.model,
                         data => {
                             self.busy = false;
                             self.$router.push({ name: 'index' });
-                            Notify.success('Oh No Scuuess ...');
+                            Notify.success('User added successfully!');
                         },
                         err => {
                             self.busy = false;
-                            console.log(err);
+                            Notify.error('Fail, User not added!');
                             this.$setErrorsFromResponse(err);
                         }
                     );

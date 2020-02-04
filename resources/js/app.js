@@ -24,7 +24,6 @@ function ProjectUrl(path = null) {
 window.ProjectUrl = ProjectUrl;
 
 let AB_URL = ProjectUrl();
-console.log('AB_URL:', AB_URL);
 
 window.PREFIX = 'laravel_vue_mpa';
 

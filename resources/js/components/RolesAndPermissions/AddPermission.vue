@@ -6,19 +6,19 @@
                 <form @submit.prevent="onSubmit">
                     <div class="form-group">
                         <label for="name" class="control-label">Permission Name:</label>
-                        <input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-validate="'required'" v-model="model.name" placeholder="Permission Name" data-vv-as="Permission Name.." />
-                        <span class="help text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</span>
+                        <input v-model="model.name" v-validate="'required'" type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" placeholder="Permission Name" data-vv-as="Permission Name.." />
+                        <span v-if="errors.has('name')" class="help text-danger">{{ errors.first('name') }}</span>
                     </div>
                     <div class="form-group">
                         <label for="permissionkey" class="control-label">Permission Display Name:</label>
-                        <input type="text" name="permissionkey" id="permissionkey" class="form-control form-control-lg" v-validate="'required'" v-model="model.permissionkey" :class="{ 'is-invalid': errors.has('permissionkey') }" placeholder="Permission Display Name" data-vv-as="Permission Display Name" />
-                        <span class="help text-danger" v-if="errors.has('permissionkey')">{{ errors.first('permissionkey') }}</span>
+                        <input id="permissionkey" v-model="model.permissionkey" v-validate="'required'" type="text" name="permissionkey" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('permissionkey') }" placeholder="Permission Display Name" data-vv-as="Permission Display Name" />
+                        <span v-if="errors.has('permissionkey')" class="help text-danger">{{ errors.first('permissionkey') }}</span>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="permissiontype" class="control-label">Permission Type:</label>
-                            <input type="text" class="form-control form-control-lg" name="permissiontype" id="permissiontype" placeholder="Permission Type" data-vv-as="Permission Type" v-model="model.permissiontype" :class="{ 'is-invalid': errors.has('permissiontype') }" v-validate="'required'" />
-                            <span class="help text-danger" v-if="errors.has('permissiontype')">{{ errors.first('permissiontype') }}</span>
+                            <input id="permissiontype" v-model="model.permissiontype" v-validate="'required'" type="text" class="form-control form-control-lg" name="permissiontype" placeholder="Permission Type" data-vv-as="Permission Type" :class="{ 'is-invalid': errors.has('permissiontype') }" />
+                            <span v-if="errors.has('permissiontype')" class="help text-danger">{{ errors.first('permissiontype') }}</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-import User from '~/api/user';
+import Permission from '~/api/permission';
 import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
@@ -49,7 +49,7 @@ export default {
         };
     },
     mounted() {
-        // User.all(data => {
+        // Permission.allPermission(data => {
         //     console.log(data);
         // }, err =>{
         //     console.log(err);
@@ -57,14 +57,14 @@ export default {
     },
     methods: {
         readFile(e) {
-            let files = e.target.files || e.dataTransfer.files;
+            const files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
             this.createImage(files[0]);
             this.bimage = files[0];
         },
         createImage(file) {
-            let reader = new FileReader();
-            let vm = this;
+            const reader = new FileReader();
+            const vm = this;
             reader.onload = e => {
                 vm.model.image = e.target.result;
             };
@@ -72,21 +72,22 @@ export default {
         },
 
         onSubmit() {
-            let self = this;
+            const self = this;
             self.$validator.validateAll().then(result => {
                 if (result) {
                     self.busy = true;
                     console.log(self.model);
-                    User.save(
+                    Permission.save(
                         self.model,
                         data => {
                             self.busy = false;
-                            self.$router.push({ name: 'index' });
-                            Notify.success('Oh No Scuuess ...');
+                            self.$router.push({ path: '/permissions/index' });
+                            Notify.success('Permission Added Successfully!');
                         },
                         err => {
                             self.busy = false;
                             console.log(err);
+                            Notify.error('Fail, Permission not Added!');
                             this.$setErrorsFromResponse(err);
                         }
                     );

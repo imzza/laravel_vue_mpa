@@ -1,51 +1,60 @@
 <template>
-    <div>
-        <template>
-            <div class="filter-bar">
-                <form class="form-inline">
-                    <div class="form-group d-flex justify-content-end w-100">
-                        <label class="cust-label">Search for:</label>
-                        <input type="text" v-model="filterText" class="form-control cust-form-control" @keyup.enter="doFilter" placeholder="Search .." />
-                        <button class="btn btn-primary w10" @click.prevent="doFilter">Go</button>
-                        <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">Reset</button>
+    <section>
+        <div class="card mt-4 border-0">
+            <div class="card-body">
+                <template>
+                    <div class="filter-bar">
+                        <form class="form-inline">
+                            <div class="form-group d-flex justify-content-end w-100">
+                                <label class="cust-label">Search for:</label>
+                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter" />
+                                <button class="btn btn-primary w10" @click.prevent="doFilter">
+                                    Go
+                                </button>
+                                <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">
+                                    Reset
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </template>
+                <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
+                    <div slot="actions-slot" slot-scope="props">
+                        <div class="custom-actions">
+                            <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
+                                <i class="fa fa-edit" />
+                            </button>
+                            <button class="btn btn-primary btn-sm" @click="itemAction('assign', props.rowData.id)">
+                                <i class="fa fa-edit" />
+                            </button>
+                            <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+                                <i class="fa fa-trash" />
+                            </button>
+                        </div>
+                    </div>
+                </vuetable>
+                <div class="vuetable-pagination">
+                    <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info" />
+                    <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage" />
+                </div>
             </div>
-        </template>
-        <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData"></vuetable>
-        <div class="vuetable-pagination">
-            <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info"></vuetable-pagination-info>
-            <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
         </div>
-    </div>
+    </section>
 </template>
-<!--/api/v1/employees_all vuetable.ratiw.net/api/users -->
 <script>
 import moment from 'moment';
 import Vuetable from 'vuetable-2/src/components/Vuetable';
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
 import Vue from 'vue';
+import Role from '~/api/role';
 
-import VueEvents from 'vue-events';
-
-import CustomActions from './CustomActions';
-// import DetailRow from './DetailRow';
-import FilterBar from './FilterBar';
-
-Vue.use(VueEvents);
-
-// Vue.component('custom-actions', CustomActions);
-// Vue.component('filter-bar', FilterBar);
-
-import User from '~/api/user.js';
 export default {
     name: 'SampleComponent',
     components: {
         Vuetable,
         VuetablePagination,
         VuetablePaginationInfo,
-        'custom-actions': CustomActions,
     },
     data() {
         return {
@@ -57,11 +66,6 @@ export default {
                     titleClass: 'text-right',
                     dataClass: 'text-right',
                 },
-                // {
-                //   name: '__checkbox',
-                //   titleClass: 'text-center',
-                //   dataClass: 'text-center',
-                // },
                 {
                     name: 'name',
                     title: 'Role Name',
@@ -77,38 +81,8 @@ export default {
                     title: 'Description',
                     sortField: 'role_descrip',
                 },
-                // {
-                //     name: 'city',
-                //     title: 'City',
-                //     sortField: 'city',
-                // },
-                // {
-                //     name: 'state',
-                //     title: 'State',
-                //     sortField: 'state',
-                // },
-                // {
-                //     name: 'zip',
-                //     title: 'zip',
-                //     sortField: 'zip',
-                // },
-                // {
-                //     name: 'created_at',
-                //     title: 'Created',
-                //     sortField: 'created_at',
-                //     titleClass: 'text-center',
-                //     dataClass: 'text-center',
-                //     callback: 'formatDate|DD-MM-YYYY',
-                // },
-                // {
-                //     name: 'gender',
-                //     sortField: 'gender',
-                //     titleClass: 'text-center',
-                //     dataClass: 'text-center',
-                //     callback: 'genderLabel',
-                // },
                 {
-                    name: '__component:custom-actions',
+                    name: '__slot:actions-slot',
                     title: 'Actions',
                     titleClass: 'text-center',
                     dataClass: 'text-center',
@@ -144,7 +118,53 @@ export default {
             moreParams: {},
         };
     },
+    computed: {
+        ApiUrl() {
+            return API_URL;
+        },
+    },
+    created() {
+        EventBus.$on('DELETE_CONTACT', data => {
+            console.log(data);
+            Role.delete(
+                data.id,
+                resp => {
+                    Notify.success('Deleted successfully');
+                    this.$refs.vuetable.refresh();
+                },
+                err => {
+                    Notify.error('Something went wrong');
+                }
+            );
+        });
+    },
+    destroyed() {
+        EventBus.$on('DELETE_CONTACT');
+    },
     methods: {
+        itemAction(action, data) {
+            if (action == 'edit') {
+                this.$router.push({ path: '/edit/' + data });
+            } else if (action == 'view') {
+                alert('View');
+            } else if (action == 'assign') {
+                this.$router.push({ path: '/assign/' + data });
+            }
+        },
+        deleteItem(id) {
+            Notify.confirm().then(resp => {
+                Role.delete(
+                    id,
+                    resp => {
+                        Notify.success('Role Deleted successfully!');
+                        this.$refs.vuetable.refresh();
+                    },
+                    err => {
+                        Notify.error('Fail, Role Not Deleted!');
+                    }
+                );
+            });
+        },
         doFilter() {
             this.moreParams = {
                 filter: this.filterText,
@@ -195,60 +215,29 @@ export default {
                 });
         },
     },
-    // events: {
-    //     'filter-set'(filterText) {
-    //         this.moreParams = {
-    //             filter: filterText,
-    //         };
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    //     'filter-reset'() {
-    //         this.moreParams = {};
-    //         Vue.nextTick(() => this.$refs.vuetable.refresh());
-    //     },
-    // },
-    computed: {
-        ApiUrl() {
-            return API_URL;
-        },
-    },
-    created() {
-        EventBus.$on('DELETE_CONTACT', data => {
-            console.log(data);
-            User.delete(
-                data.id,
-                resp => {
-                    Notify.success('Deleted successfully');
-                    this.$refs.vuetable.refresh();
-                },
-                err => {
-                    Notify.error('Something went wrong');
-                }
-            );
-        });
-    },
-    destroyed() {
-        EventBus.$on('DELETE_CONTACT');
-    },
 };
 </script>
 <style>
 .vuetable-empty-result {
     font-weight: bold;
 }
+
 .vuetable-pagination {
     display: flex;
     flex-direction: row;
     font-weight: bold;
     justify-content: space-between;
 }
+
 .pagination-info {
     font-weight: bold;
 }
+
 .pagination .btn-nav {
     width: 30px;
     height: 35px;
 }
+
 .pagination .page {
     cursor: pointer;
 }
@@ -262,17 +251,21 @@ export default {
     font-weight: bold;
     color: #000;
 }
+
 .cust-label {
     font-weight: bold;
     margin-right: 20px;
 }
+
 .w10 {
     width: 7% !important;
     margin: 0px 10px 0px 10px;
 }
+
 .f-right {
     margin-right: -10px !important;
 }
+
 .cust-form-control {
     width: 20%;
     max-width: 200px !important;
