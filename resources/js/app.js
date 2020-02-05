@@ -52,8 +52,8 @@ Vue.component('mian-component', require('./components/MainComponent.vue').defaul
 Vue.component('roles-and-permissions-component', require('./components/RolesAndPermissions/Index.vue').default);
 
 //Dynamic Imports
-// Vue.component('v-button', () => import('./components/Button.vue'));
-Vue.component('v-button', require('./components/Button.vue').default);
+Vue.component('v-button', () => import('./components/Button.vue'));
+// Vue.component('v-button', require('./components/Button.vue').default);
 
 Vue.prototype.$setErrorsFromResponse = function(errorResponse) {
     if (!this.hasOwnProperty('$validator')) {

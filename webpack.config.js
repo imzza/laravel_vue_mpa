@@ -20,16 +20,16 @@ module.exports = (env) => {
         minimizer: [
             new OptimizeCssAssetsPlugin({
                 cssProcessorOptions: {
-                    map: {
-                        inline: false
-                    },
-                    preset: ['default', { discardComments: { removeAll: true } }],
+                    // map: {
+                    //     inline: false
+                    // },
+                    // preset: ['default', { discardComments: { removeAll: true } }],
                 }
             }),
             new TerserPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true,
+                // sourceMap: true,
                 terserOptions: {
                     compress: {
                         warnings: false
@@ -182,55 +182,63 @@ module.exports = (env) => {
 
 
         new EventHooksPlugin({
-                done: stats => {
-                    const { time, errors, assets } = stats.toJson();
+            done: stats => {
+                const { time, errors, assets } = stats.toJson();
+                console.log(time, errors, assets);
+                // notifier.notify({
+                //     title:
+                //         errors.length > 0
+                //             ? 'Build Failed'
+                //             : 'Build Successful',
+                //     message: `Completed in ${time}ms`,
+                //     icon: path.resolve(
+                //         __dirname,
+                //         './public/android-chrome-512x512.png',
+                //     ),
+                //     sound: true,
+                //     wait: true,
+                // });
 
-                    // notifier.notify({
-                    //     title:
-                    //         errors.length > 0
-                    //             ? 'Build Failed'
-                    //             : 'Build Successful',
-                    //     message: `Completed in ${time}ms`,
-                    //     icon: path.resolve(
-                    //         __dirname,
-                    //         './public/android-chrome-512x512.png',
-                    //     ),
-                    //     sound: true,
-                    //     wait: true,
-                    // });
+                let assetCollection = {};
 
-                    let assetCollection = {};
-
-                    assets.forEach(({ name }) => {
-                        let ext = name.split('.').reverse()[0];
-                        let key = `${name.substring(
+                assets.forEach(({ name }) => {
+                    let ext = name.split('.').reverse()[0];
+                    let key = `/public/dist/${name.substring(
                             0,
                             name.indexOf('.'),
                         )}.${ext}`;
 
-                        Object.assign(assetCollection, {
-                            [key]: name,
-                        });
+                    Object.assign(assetCollection, {
+                        [key]: '/public/dist/'+name,
                     });
+                });
 
-                    fs.writeFileSync(
-                        path.resolve(__dirname, './public/dist/mix-manifest.json'),
-                        JSON.stringify(assetCollection, null, 2),
-                    );
-                },
+                fs.writeFileSync(
+                    path.resolve(__dirname, './public/mix-manifest.json'),
+                    JSON.stringify(assetCollection, null, 2),
+                );
+            },
         }),
-
-
     ];
 
     if (!isDevelopment) {
         let prodPlugins = [
-            new CleanWebpackPlugin(),
+            // new CleanWebpackPlugin(),
+
+
+            new CleanWebpackPlugin({
+                verbose: true,
+                dry: false,
+                cleanStaleWebpackAssets: false,
+                protectWebpackAssets: false,
+                cleanOnceBeforeBuildPatterns: ["./public/**/*.css", "./public/**/*.js", "./public/fonts/**/*.*", "./js/**/*.js"]
+            }),
+
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
             new MiniCssExtractPlugin({
                 path: path.resolve(__dirname, './public/dist/css'),
-                filename: '[name].[contentHash].css',
-                chunkFilename: '[id].chunk.css',
+                filename: 'css/[name].[contentHash].css',
+                chunkFilename: 'css/[id].[contentHash].css',
             })
         ];
 
@@ -240,15 +248,15 @@ module.exports = (env) => {
     return ({
         mode: isDevelopment ? 'development' : 'production',
         entry: {
-            app: ['./resources/js/app.js', './resources/sass/app.scss'],
-            vendor: ['./resources/js/vendor.js', './resources/sass/style.scss']
+            app: ['./resources/js/app.js', './resources/sass/app.scss', './resources/sass/style.scss'],
+            vendor: ['./resources/js/vendor.js']
         },
         output: {
             path: path.resolve(__dirname, './public/dist'),
             // publicPath: '/',
             publicPath: '/laravel_vue_mpa/',
-            filename: 'js/[name].[contentHash].bundle.js',
-            chunkFilename: 'js/[id].[contentHash].chunk.js'
+            filename: 'js/[name].[contentHash].js',
+            chunkFilename: 'js/[id].[contentHash].js'
         },
         devtool: devtool,
         module: {
@@ -301,7 +309,7 @@ module.exports = (env) => {
             ],
             alias: {
                 '@': path.resolve(__dirname, 'src'),
-                 '~': path.join(__dirname, './resources/js'),
+                '~': path.join(__dirname, './resources/js'),
                 vue$: 'vue/dist/vue.common.js'
             }
         }

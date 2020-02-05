@@ -85,7 +85,6 @@ mix.then(() => {
     }
 });
 
-mix.dump();
 
 function publishAseets() {
     // const publicDir = path.resolve(__dirname, 'public')
