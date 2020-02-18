@@ -20,11 +20,11 @@ class StudentsController extends Controller {
 
         $result = Student::orderBy($field, $dir);
         if ($request->filter != '') {
-            $result = $result->where('first_name', 'like', $request->filter);
-            $result = $result->orWhere('last_name', 'like', $request->filter);
-            $result = $result->orWhere('email', 'like', $request->filter);
-            $result = $result->orWhere('address', 'like', $request->filter);
-            $result = $result->orWhere('about', 'like', $request->filter);
+            $result = $result->where('first_name', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('last_name', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('email', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('address', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('about', 'like', '%'.$request->filter.'%');
         }
         $result = $result->paginate($limit);
 
