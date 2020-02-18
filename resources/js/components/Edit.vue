@@ -172,7 +172,7 @@ export default {
                         data => {
                             self.busy = false;
                             self.$router.push({ name: 'index' });
-                            Notify.success('Oh No Scuuess ...');
+                            Notify.success('Scuuess ...');
                         },
                         err => {
                             self.busy = false;
