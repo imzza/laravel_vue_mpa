@@ -5,9 +5,9 @@ Auth::routes();
 
 
 // Route::group(['middleware' => ['role:SUP', 'auth']], function () {
-//     Route::group(['prefix' => 'admin'], function(){
-//         Route::get('/', 'HomeController@admin')->name('admin.index');
-//     });
+    Route::group(['prefix' => 'admin'], function(){
+        Route::get('/', 'HomeController@admin')->name('admin.index');
+    });
 // });
 
 Route::group(['middleware' => ['auth']], function () {

@@ -33,18 +33,22 @@ window.API_URL = baseUrl + '/api/'
 window.Vue = Vue
 window.Notify = notify
 window.EventBus = new Vue()
-Vue.mixin(Permissions)
+Vue.mixin(Permissions);
+
+
 Vue.component(
     'mian-component',
-    require('./components/MainComponent.vue').default
+    () => import('./components/MainComponent.vue')
 )
 Vue.component(
     'roles-and-permissions-component',
-    require('./components/RolesAndPermissions/Index.vue').default
+    () => import('./components/RolesAndPermissions/Index.vue')
 )
 // Dynamic Imports
-// Vue.component('v-button', () => import('./components/Button.vue'));
-Vue.component('v-button', require('./components/Button.vue').default)
+Vue.component('v-button', () => import('./components/Button.vue'));
+
+// Vue.component('v-button', require('./components/Button.vue'))
+
 Vue.prototype.$setErrorsFromResponse = function(errorResponse) {
     if (!this.hasOwnProperty('$validator')) {
         return

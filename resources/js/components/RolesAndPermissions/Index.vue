@@ -53,7 +53,7 @@
                 {
                     path: '/index',
                     name: 'index',
-                    component: require('./List.vue').default,
+                    component: () => import('./List.vue'),
                 },
                 {
                     path: '/',
@@ -62,18 +62,18 @@
                 {
                     path: '/add',
                     name: 'roles-add',
-                    component: require('./Add.vue').default,
+                    component: () => import('./Add.vue'),
                 },
                 {
                     path: '/edit/:id',
                     name: 'edit-item',
-                    component: require('./Edit.vue').default,
+                    component: () => import('./Edit.vue'),
                     props: true,
                 },
                 {
                     path: '/assign/:id?',
                     name: 'assign-permissions',
-                    component: require('./AssignPermissions.vue').default,
+                    component: () => import('./AssignPermissions.vue'),
                     props: true,
                 },
                 {
@@ -84,17 +84,17 @@
                         {
                             path: 'index',
                             name: 'permissions-list',
-                            component: require('./ListPermissions.vue').default,
+                            component: () => import('./ListPermissions.vue'),
                         },
                         {
                             path: 'add',
                             name: 'permissions-add',
-                            component: require('./AddPermission.vue').default,
+                            component: () => import('./AddPermission.vue'),
                         },
                         {
                             path: 'edit/:id',
                             name: 'permissions-edit',
-                            component: require('./EditPermission.vue').default,
+                            component: () => import('./EditPermission.vue'),
                             props: true,
                         },
                     ],

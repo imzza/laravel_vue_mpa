@@ -41,7 +41,7 @@
                 {
                     path: '/index',
                     name: 'index',
-                    component: require('./Index.vue').default,
+                    component: () => import('./Index.vue'),
                 },
                 {
                     path: '/',
@@ -50,12 +50,12 @@
                 {
                     path: '/add',
                     name: 'add',
-                    component: require('./Add.vue').default,
+                    component: () => import('./Add.vue'),
                 },
                 {
                     path: '/edit/:id',
                     name: 'edit-item',
-                    component: require('./Edit.vue').default,
+                    component: () => import('./Edit.vue'),
                     props: true,
                 },
                 {
