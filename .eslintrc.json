@@ -1,10 +1,20 @@
 {
-    "root": true,
-    "parserOptions": {
-        // "parser": "babel-eslint",
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "extends": ["plugin:vue/recommended", "standard"],
-    "rules": { "vue/max-attributes-per-line": "off" }
+	"root": true,
+	"parserOptions": {
+		// "parser": "babel-eslint",
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"extends": ["plugin:vue/recommended", "standard"],
+	"rules": {
+		"vue/max-attributes-per-line": "off",
+		"no-undef": "off",
+		"no-tabs": "off",
+		"eqeqeq": "off",
+		"vue/require-prop-types": "off",
+		"handle-callback-err": "off",
+		"no-unused-vars": "off",
+		"no-sequences": "off",
+		"no-prototype-builtins": "off"
+	}
 }

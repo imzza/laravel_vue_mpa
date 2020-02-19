@@ -63,20 +63,20 @@ const Role = {
 			})
 	},
 
-    roles_with_permissions(cb, errorCB) {
-        axios
-            .get(API_URL + 'roles_with_permissions')
-            .then(resp => {
-                if (resp.status == 200) {
-                    cb(resp.data)
-                } else {
-                    errorCB(resp.data)
-                }
-            })
-            .catch(err => {
-                errorCB(err.response)
-            })
-    },
+	roles_with_permissions(cb, errorCB) {
+		axios
+			.get(API_URL + 'roles_with_permissions')
+			.then(resp => {
+				if (resp.status == 200) {
+					cb(resp.data)
+				} else {
+					errorCB(resp.data)
+				}
+			})
+			.catch(err => {
+				errorCB(err.response)
+			})
+	},
 
 	assign_permissions(id, data, cb, errorCb) {
 		axios

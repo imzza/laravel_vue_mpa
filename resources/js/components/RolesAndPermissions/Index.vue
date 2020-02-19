@@ -3,27 +3,31 @@
 		<div class="row justify-content-start mt-3">
 			<div class="col-6 d-flex justify-content-start">
 				<router-link :to="{ name: 'index' }">
-					<button class="btn btn-primary mr-3">Roles</button>
+					<button class="btn btn-primary mr-3">
+						Roles
+					</button>
 				</router-link>
 				<router-link :to="{ name: 'permissions-list' }">
-					<button class="btn btn-primary mr-3">Permissions</button>
+					<button class="btn btn-primary mr-3">
+						Permissions
+					</button>
 				</router-link>
 				<router-link :to="{ name: 'roles-add' }">
 					<button class="btn btn-primary mr-3">
-						<i class="fa fa-plus" aria-hidden="true"></i>
+						<i class="fa fa-plus" aria-hidden="true" />
 						Role
 					</button>
 				</router-link>
 				<router-link :to="{ name: 'permissions-add' }">
 					<button class="btn btn-primary mr-3">
-						<i class="fa fa-plus" aria-hidden="true"></i>
+						<i class="fa fa-plus" aria-hidden="true" />
 						Permission
 					</button>
 				</router-link>
 			</div>
 		</div>
 		<div>
-			<router-view></router-view>
+			<router-view />
 		</div>
 	</div>
 </template>
@@ -31,7 +35,7 @@
 	import VueRouter from 'vue-router'
 	// () => import('~/components/Index.vue')
 
-	let url = ProjectUrl('')
+	const url = ProjectUrl('')
 
 	export default {
 		name: 'RolesAndPermissionsIndex',

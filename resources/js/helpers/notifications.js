@@ -35,7 +35,7 @@ const notify = {
 		}
 
 		return new Promise((resolve, reject) => {
-			//text:  for small text
+			// text:  for small text
 			Swal.fire({
 				title: message,
 				position: 'top-right',

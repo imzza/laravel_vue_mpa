@@ -6,19 +6,19 @@
 				<form @submit.prevent="onSubmit">
 					<div class="form-group">
 						<label for="name" class="control-label">Role Name:</label>
-						<input type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" v-model="model.name" v-validate="'required'" data-vv-as="Role name" placeholder="Role Name.." />
-						<span class="help text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</span>
+						<input v-model="model.name" v-validate="'required'" type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" data-vv-as="Role name" placeholder="Role Name.." />
+						<span v-if="errors.has('name')" class="help text-danger">{{ errors.first('name') }}</span>
 					</div>
 					<div class="form-group">
 						<label for="rolename" class="control-label">Role Display Name:</label>
-						<input type="text" name="rolename" id="rolename" class="form-control form-control-lg" v-validate="'required|min:3'" data-vv-as="Role display name" v-model="model.rolename" :class="{ 'is-invalid': errors.has('rolename') }" placeholder="Role Display Nam.." />
-						<span class="help text-danger" v-if="errors.has('rolename')">{{ errors.first('rolename') }}</span>
+						<input id="rolename" v-model="model.rolename" v-validate="'required|min:3'" type="text" name="rolename" class="form-control form-control-lg" data-vv-as="Role display name" :class="{ 'is-invalid': errors.has('rolename') }" placeholder="Role Display Nam.." />
+						<span v-if="errors.has('rolename')" class="help text-danger">{{ errors.first('rolename') }}</span>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-12">
 							<label for="roledescription">Role Description</label>
-							<input type="text" class="form-control form-control-lg" data-vv-as="Description" name="roledescription" id="roledescription" placeholder="Short description.." v-model="model.roledescription" :class="{ 'is-invalid': errors.has('roledescription') }" v-validate="'required'" />
-							<span class="help text-danger" v-if="errors.has('roledescription')">{{ errors.first('roledescription') }}</span>
+							<input id="roledescription" v-model="model.roledescription" v-validate="'required'" type="text" class="form-control form-control-lg" data-vv-as="Description" name="roledescription" placeholder="Short description.." :class="{ 'is-invalid': errors.has('roledescription') }" />
+							<span v-if="errors.has('roledescription')" class="help text-danger">{{ errors.first('roledescription') }}</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -53,7 +53,7 @@
 		},
 		methods: {
 			onSubmit() {
-				let self = this
+				const self = this
 				self.$validator.validateAll().then(result => {
 					if (result) {
 						self.busy = true
@@ -77,7 +77,7 @@
 			},
 			async getRoleById() {
 				try {
-					let { data } = await axios.get(API_URL + 'roles/' + this.id)
+					const { data } = await axios.get(API_URL + 'roles/' + this.id)
 					/// Here we map form names with dataabase colms
 					this.model = {
 						id: data.id,

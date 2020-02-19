@@ -3,15 +3,19 @@
 		<div class="row justify-content-start mt-3">
 			<div class="col-4 d-flex justify-content-start">
 				<router-link :to="{ name: 'index' }">
-					<button class="btn btn-primary mr-3">Home</button>
+					<button class="btn btn-primary mr-3">
+						Home
+					</button>
 				</router-link>
 				<router-link :to="{ name: 'add' }">
-					<button class="btn btn-primary mr-3">Add</button>
+					<button class="btn btn-primary mr-3">
+						Add
+					</button>
 				</router-link>
 			</div>
 		</div>
 		<div>
-			<router-view></router-view>
+			<router-view />
 		</div>
 	</div>
 </template>
@@ -19,7 +23,7 @@
 	import VueRouter from 'vue-router'
 	// () => import('~/components/Index.vue')
 
-	let url = ProjectUrl('')
+	const url = ProjectUrl('')
 
 	export default {
 		name: 'Index',
