@@ -193,9 +193,9 @@ class RolesAndPermissionsController extends Controller
 
         $result = Role::orderBy($field, $dir);
         if ($request->filter != '') {
-            $result = $result->where('name', 'like', $request->filter);
-            $result = $result->orWhere('role_descrip', 'like', $request->filter);
-            $result = $result->orWhere('rolename', 'like', $request->filter);
+            $result = $result->where('name', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('role_descrip', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('rolename', 'like', '%'.$request->filter.'%');
         }
         $result = $result->paginate($limit);
 
@@ -209,9 +209,9 @@ class RolesAndPermissionsController extends Controller
 
         $result = Permission::orderBy($field, $dir);
         if ($request->filter != '') {
-            $result = $result->where('name', 'like', $request->filter);
-            $result = $result->orWhere('key', 'like', $request->filter);
-            $result = $result->orWhere('type', 'like', $request->filter);
+            $result = $result->where('name', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('key', 'like', '%'.$request->filter.'%');
+            $result = $result->orWhere('type', 'like', '%'.$request->filter.'%');
         }
         $result = $result->paginate($limit);
 
