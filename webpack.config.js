@@ -94,7 +94,12 @@ module.exports = env => {
                 {
                     loader: 'img-loader',
                     options: {
-                        plugins: [require('imagemin-mozjpeg')(), require('imagemin-pngquant')(), require('imagemin-gifsicle')(), require('imagemin-svgo')()],
+                        plugins: [
+                            require('imagemin-mozjpeg')(),
+                            require('imagemin-pngquant')(),
+                            require('imagemin-gifsicle')(),
+                            require('imagemin-svgo')(),
+                        ],
                     },
                 },
             ],
@@ -114,13 +119,21 @@ module.exports = env => {
         {
             test: /\.(sa|sc|c)ss$/,
             use: [
-                isDevelopment ? 'vue-style-loader' : MiniCssExtractPlugin.loader,
+                isDevelopment
+                    ? 'vue-style-loader'
+                    : MiniCssExtractPlugin.loader,
                 'css-loader',
                 {
                     loader: 'postcss-loader',
                     options: {
                         plugins: function() {
-                            return [require('postcss-preset-env'), require('postcss-custom-selectors'), require('postcss-color-function'), require('precss'), require('autoprefixer')]
+                            return [
+                                require('postcss-preset-env'),
+                                require('postcss-custom-selectors'),
+                                require('postcss-color-function'),
+                                require('precss'),
+                                require('autoprefixer'),
+                            ]
                         },
                     },
                 },
@@ -189,14 +202,20 @@ module.exports = env => {
 
                 assets.forEach(({ name }) => {
                     let ext = name.split('.').reverse()[0]
-                    let key = `/public/dist/${name.substring(0, name.indexOf('.'))}.${ext}`
+                    let key = `/public/dist/${name.substring(
+                        0,
+                        name.indexOf('.')
+                    )}.${ext}`
 
                     Object.assign(assetCollection, {
                         [key]: '/public/dist/' + name,
                     })
                 })
 
-                fs.writeFileSync(path.resolve(__dirname, './public/mix-manifest.json'), JSON.stringify(assetCollection, null, 2))
+                fs.writeFileSync(
+                    path.resolve(__dirname, './public/mix-manifest.json'),
+                    JSON.stringify(assetCollection, null, 2)
+                )
             },
         }),
     ]
@@ -210,7 +229,12 @@ module.exports = env => {
                 dry: false,
                 cleanStaleWebpackAssets: false,
                 protectWebpackAssets: false,
-                cleanOnceBeforeBuildPatterns: ['./public/**/*.css', './public/**/*.js', './public/fonts/**/*.*', './js/**/*.js'],
+                cleanOnceBeforeBuildPatterns: [
+                    './public/**/*.css',
+                    './public/**/*.js',
+                    './public/fonts/**/*.*',
+                    './js/**/*.js',
+                ],
             }),
 
             new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -227,7 +251,11 @@ module.exports = env => {
     return {
         mode: isDevelopment ? 'development' : 'production',
         entry: {
-            app: ['./resources/js/app.js', './resources/sass/app.scss', './resources/sass/style.scss'],
+            app: [
+                './resources/js/app.js',
+                './resources/sass/app.scss',
+                './resources/sass/style.scss',
+            ],
             vendor: ['./resources/js/vendor.js'],
         },
         output: {

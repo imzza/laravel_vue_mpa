@@ -5,20 +5,74 @@
                 <p>Add Record</p>
                 <form @submit.prevent="onSubmit">
                     <div class="form-group">
-                        <label for="name" class="control-label">Permission Name:</label>
-                        <input v-model="model.name" v-validate="'required'" type="text" name="name" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('name') }" placeholder="Permission Name" data-vv-as="Permission Name.." />
-                        <span v-if="errors.has('name')" class="help text-danger">{{ errors.first('name') }}</span>
+                        <label for="name" class="control-label">
+                            Permission Name:
+                        </label>
+                        <input
+                            v-model="model.name"
+                            v-validate="'required'"
+                            type="text"
+                            name="name"
+                            class="form-control form-control-lg"
+                            :class="{ 'is-invalid': errors.has('name') }"
+                            placeholder="Permission Name"
+                            data-vv-as="Permission Name.."
+                        />
+                        <span
+                            v-if="errors.has('name')"
+                            class="help text-danger"
+                        >
+                            {{ errors.first('name') }}
+                        </span>
                     </div>
                     <div class="form-group">
-                        <label for="permissionkey" class="control-label">Permission Display Name:</label>
-                        <input id="permissionkey" v-model="model.permissionkey" v-validate="'required'" type="text" name="permissionkey" class="form-control form-control-lg" :class="{ 'is-invalid': errors.has('permissionkey') }" placeholder="Permission Display Name" data-vv-as="Permission Display Name" />
-                        <span v-if="errors.has('permissionkey')" class="help text-danger">{{ errors.first('permissionkey') }}</span>
+                        <label for="permissionkey" class="control-label">
+                            Permission Display Name:
+                        </label>
+                        <input
+                            id="permissionkey"
+                            v-model="model.permissionkey"
+                            v-validate="'required'"
+                            type="text"
+                            name="permissionkey"
+                            class="form-control form-control-lg"
+                            :class="{
+                                'is-invalid': errors.has('permissionkey'),
+                            }"
+                            placeholder="Permission Display Name"
+                            data-vv-as="Permission Display Name"
+                        />
+                        <span
+                            v-if="errors.has('permissionkey')"
+                            class="help text-danger"
+                        >
+                            {{ errors.first('permissionkey') }}
+                        </span>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for="permissiontype" class="control-label">Permission Type:</label>
-                            <input id="permissiontype" v-model="model.permissiontype" v-validate="'required'" type="text" class="form-control form-control-lg" name="permissiontype" placeholder="Permission Type" data-vv-as="Permission Type" :class="{ 'is-invalid': errors.has('permissiontype') }" />
-                            <span v-if="errors.has('permissiontype')" class="help text-danger">{{ errors.first('permissiontype') }}</span>
+                            <label for="permissiontype" class="control-label">
+                                Permission Type:
+                            </label>
+                            <input
+                                id="permissiontype"
+                                v-model="model.permissiontype"
+                                v-validate="'required'"
+                                type="text"
+                                class="form-control form-control-lg"
+                                name="permissiontype"
+                                placeholder="Permission Type"
+                                data-vv-as="Permission Type"
+                                :class="{
+                                    'is-invalid': errors.has('permissiontype'),
+                                }"
+                            />
+                            <span
+                                v-if="errors.has('permissiontype')"
+                                class="help text-danger"
+                            >
+                                {{ errors.first('permissiontype') }}
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,7 +135,9 @@
                             self.model,
                             data => {
                                 self.busy = false
-                                self.$router.push({ path: '/permissions/index' })
+                                self.$router.push({
+                                    path: '/permissions/index',
+                                })
                                 Notify.success('Permission Added Successfully!')
                             },
                             err => {

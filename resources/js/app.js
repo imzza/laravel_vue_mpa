@@ -7,7 +7,8 @@ import Permissions from '~/mixins/cmmon.js'
 window._ = _
 const getUrl = window.location
 // remove last section for running project as virtual host
-const baseUrl = getUrl.protocol + '//' + getUrl.host + '/' + getUrl.pathname.split('/')[1]
+const baseUrl =
+    getUrl.protocol + '//' + getUrl.host + '/' + getUrl.pathname.split('/')[1]
 function ProjectUrl(path = null) {
     const url = window.location.origin
     const pth = window.location.pathname
@@ -33,8 +34,14 @@ window.Vue = Vue
 window.Notify = notify
 window.EventBus = new Vue()
 Vue.mixin(Permissions)
-Vue.component('mian-component', require('./components/MainComponent.vue').default)
-Vue.component('roles-and-permissions-component', require('./components/RolesAndPermissions/Index.vue').default)
+Vue.component(
+    'mian-component',
+    require('./components/MainComponent.vue').default
+)
+Vue.component(
+    'roles-and-permissions-component',
+    require('./components/RolesAndPermissions/Index.vue').default
+)
 // Dynamic Imports
 // Vue.component('v-button', () => import('./components/Button.vue'));
 Vue.component('v-button', require('./components/Button.vue').default)
