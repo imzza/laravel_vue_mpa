@@ -74,6 +74,7 @@ class RolesAndPermissionsController extends Controller
         $permission->name = $request->name;
         $permission->key = $request->permissionkey;
         $permission->type = $request->permissiontype;
+        $permission->guard_name = 'web';
         $permission->save();
         if ($permission->id) {
             return response()->json($permission, 201);
