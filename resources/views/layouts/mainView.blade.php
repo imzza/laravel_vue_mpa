@@ -6,7 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name') }}</title>
         <link href="{{ asset(mix('public/dist/css/app.css')) }}" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/f84026e448.js" crossorigin="anonymous"></script>
+        <link href="{{ asset(mix('public/dist/css/style.css')) }}" rel="stylesheet">
+        {{-- <script src="https://kit.fontawesome.com/f84026e448.js" crossorigin="anonymous"></script> --}}
        {{--  <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> --}}
         <script>
           @auth

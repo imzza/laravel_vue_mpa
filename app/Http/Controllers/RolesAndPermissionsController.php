@@ -20,8 +20,22 @@ class RolesAndPermissionsController extends Controller
         return view('RolesAndPermissions.index');
     }
 
-    public function viewRoles(Request $request) {
-        return response()->json(Role::with('permissions')->get(), 200);
+    public function rolesWithPermissions(Request $request) {
+
+        $roles = Role::with('permissions')->get();
+
+
+        $permissions = Permission::all();
+        $parrent = [];
+        foreach ($permissions as $perm) {
+            if (!array_key_exists($perm['type'], $parrent)) {
+                // checking if key not exist in array
+                $parrent[$perm['type']] = [];
+            }
+            $parrent[$perm['type']][] = $perm;
+        }
+
+        return response()->json(['roles' => $roles, 'permissions'=> $parrent], 200);
     }
 
     /**
@@ -120,8 +134,8 @@ class RolesAndPermissionsController extends Controller
             return response()->json($affectedRows, 201);
         } else {
             return response()->json(['message' => 'Bad Request'], 400);
-        }   
-        
+        }
+
     }
 
     public function updatePermission(Request $request, $id)
@@ -141,7 +155,7 @@ class RolesAndPermissionsController extends Controller
             return response()->json($affectedRows, 201);
         } else {
             return response()->json(['message' => 'Bad Request'], 400);
-        }   
+        }
     }
 
     /**
@@ -157,7 +171,7 @@ class RolesAndPermissionsController extends Controller
             return response()->json($affectedRows, 204);
         } else {
             return response()->json(['message' => 'Bad Request'], 400);
-        }  
+        }
     }
 
     public function destroyRole($id)
@@ -167,7 +181,7 @@ class RolesAndPermissionsController extends Controller
             return response()->json($affectedRows, 204);
         } else {
             return response()->json(['message' => 'Bad Request'], 400);
-        }  
+        }
     }
 
 

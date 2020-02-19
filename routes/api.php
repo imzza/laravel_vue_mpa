@@ -33,8 +33,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     /// All routes about role
     //Route::apiResource('roles', 'RolesAndPermissionsController');
-    
-    Route::get('/viewRoles', 'RolesAndPermissionsController@viewRoles');
+
+    Route::get('roles_with_permissions', 'RolesAndPermissionsController@rolesWithPermissions');
     Route::get('/roles', 'RolesAndPermissionsController@roles');
     Route::post('/roles', 'RolesAndPermissionsController@storeRole');
     Route::get('/roles/{id}', 'RolesAndPermissionsController@getRoleById');
@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('permissions/{id}', 'RolesAndPermissionsController@getPermissionById');
     Route::put('permissions/{id}', 'RolesAndPermissionsController@updatePermission');
     Route::delete('permissions/{id}', 'RolesAndPermissionsController@destroyPermission');
-    
+
 
 
    // Route::get('employees_all', 'RolesAndPermissionsController@employees_all');
