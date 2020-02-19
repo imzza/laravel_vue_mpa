@@ -5,17 +5,17 @@ Vue.use(Vuex)
 const requireContext = require.context('./modules', false, /.*\.js$/)
 
 const modules = requireContext
-	.keys()
-	.map(file => [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)])
-	.reduce((modules, [name, module]) => {
-		if (module.namespaced === undefined) {
-			module.namespaced = true
-		}
-		return { ...modules, [name]: module }
-	}, {})
+    .keys()
+    .map(file => [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)])
+    .reduce((modules, [name, module]) => {
+        if (module.namespaced === undefined) {
+            module.namespaced = true
+        }
+        return { ...modules, [name]: module }
+    }, {})
 
 console.log('Modules:', modules)
 
 export default new Vuex.Store({
-	modules,
+    modules,
 })

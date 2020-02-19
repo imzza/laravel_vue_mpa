@@ -16,16 +16,7 @@
 		"wp-watch": "npm run wp-dev -- --watch",
 		"wp-prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --env prod --no-progress --hide-modules --colors"
 	},
-	"lint-staged": {
-		"*.*": [
-			"npm run prettier"
-		]
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
+
 	"devDependencies": {
 		"@babel/core": "^7.8.4",
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
