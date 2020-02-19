@@ -105,10 +105,10 @@ model_has_permissions,model_has_roles,oauth_access_tokens,oauth_auth_codes,oauth
 
 For Linting Process:
 ```
-    "lint-staged": {
-        "*.*": [
-            "npm run lint",
-            "npm run prettier"
+ "lint-staged": {
+        "*.{js,vue,scss}": [
+            "./node_modules/.bin/prettier --write",
+            "./node_modules/.bin/eslint"
         ]
     },
     "husky": {
