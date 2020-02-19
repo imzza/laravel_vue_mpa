@@ -6,11 +6,22 @@
                 <h3>Assign Permissions To Roles</h3>
                 <div class="row justify-content-center">
                     <div class="col-5">
-                        <select id="roles_select" v-model="model.selected_role" name="selected_role" class="form-control select-background" size="1" @change="getRolePer(model.selected_role)">
+                        <select
+                            id="roles_select"
+                            v-model="model.selected_role"
+                            name="selected_role"
+                            class="form-control select-background"
+                            size="1"
+                            @change="getRolePer(model.selected_role)"
+                        >
                             <option value selected>
                                 Select
                             </option>
-                            <option v-for="data in model.roles" :key="data.id" :value="data.id">
+                            <option
+                                v-for="data in model.roles"
+                                :key="data.id"
+                                :value="data.id"
+                            >
                                 {{ data.name }}
                             </option>
                         </select>
@@ -23,18 +34,37 @@
                         </h4>
 
                         <div class="pretty p-switch p-fill mb-2">
-                            <input id="all" type="checkbox" name="all" :checked="rolePerms.length == model.length" @click="all($event)" />
+                            <input
+                                id="all"
+                                type="checkbox"
+                                name="all"
+                                :checked="rolePerms.length == model.length"
+                                @click="all($event)"
+                            />
                             <div class="state">
                                 <label>Select All</label>
                             </div>
                         </div>
-                        <div v-for="(data, index) in model.all_perms" :key="index" class="collapseable_sec">
+                        <div
+                            v-for="(data, index) in model.all_perms"
+                            :key="index"
+                            class="collapseable_sec"
+                        >
                             <h5>{{ index }}</h5>
                             <div class="perm-wrapper d-flex">
                                 <template v-for="child in data">
-                                    <div :key="child.id" class="checkbox w-25 mx-2  mt-2">
+                                    <div
+                                        :key="child.id"
+                                        class="checkbox w-25 mx-2  mt-2"
+                                    >
                                         <div class="pretty p-switch p-fill">
-                                            <input v-model="rolePerms" type="checkbox" :data-id="`${child.id}`" :true-value="child.id" :value="child.id" />
+                                            <input
+                                                v-model="rolePerms"
+                                                type="checkbox"
+                                                :data-id="`${child.id}`"
+                                                :true-value="child.id"
+                                                :value="child.id"
+                                            />
                                             <div class="state">
                                                 <label>{{ child.key }}</label>
                                             </div>
@@ -47,7 +77,10 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4 mt-5">
-                        <button class="btn btn-primary btn-block" @click="assignPermissions">
+                        <button
+                            class="btn btn-primary btn-block"
+                            @click="assignPermissions"
+                        >
                             Submit
                         </button>
                         <!-- <v-button class="btn btn-primary btn-block" :loading="busy" v-on:click="assignPermissions">
@@ -89,17 +122,19 @@
         destroyed: function() {},
         methods: {
             all(e) {
-                document.querySelectorAll('body input[type=checkbox]').forEach((element, index) => {
-                    const id = element.getAttribute('data-id')
-                    if (e.target.checked) {
-                        if (this.rolePerms.indexOf(id)) {
-                            this.rolePerms.push(id)
+                document
+                    .querySelectorAll('body input[type=checkbox]')
+                    .forEach((element, index) => {
+                        const id = element.getAttribute('data-id')
+                        if (e.target.checked) {
+                            if (this.rolePerms.indexOf(id)) {
+                                this.rolePerms.push(id)
+                            }
+                        } else {
+                            this.rolePerms = []
                         }
-                    } else {
-                        this.rolePerms = []
-                    }
-                    element.checked = e.target.checked
-                })
+                        element.checked = e.target.checked
+                    })
             },
             viewRoles() {
                 const self = this

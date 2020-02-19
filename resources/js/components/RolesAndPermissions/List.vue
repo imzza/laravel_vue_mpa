@@ -5,37 +5,80 @@
                 <template>
                     <div class="filter-bar">
                         <form class="form-inline">
-                            <div class="form-group d-flex justify-content-end w-100">
+                            <div
+                                class="form-group d-flex justify-content-end w-100"
+                            >
                                 <label class="cust-label">Search for:</label>
-                                <input v-model="filterText" type="text" class="form-control cust-form-control" placeholder="Search .." @keyup.enter="doFilter" />
-                                <button class="btn btn-primary w10" @click.prevent="doFilter">
+                                <input
+                                    v-model="filterText"
+                                    type="text"
+                                    class="form-control cust-form-control"
+                                    placeholder="Search .."
+                                    @keyup.enter="doFilter"
+                                />
+                                <button
+                                    class="btn btn-primary w10"
+                                    @click.prevent="doFilter"
+                                >
                                     Go
                                 </button>
-                                <button class="btn btn-danger w10 f-right" @click.prevent="resetFilter">
+                                <button
+                                    class="btn btn-danger w10 f-right"
+                                    @click.prevent="resetFilter"
+                                >
                                     Reset
                                 </button>
                             </div>
                         </form>
                     </div>
                 </template>
-                <vuetable ref="vuetable" :api-url="`${ApiUrl}roles`" :fields="flds" pagination-path="" :css="css.table" :sort-order="sortOrder" :multi-sort="true" :http-fetch="myFetch" detail-row-component="my-detail-row" :append-params="moreParams" @vuetable:cell-clicked="onCellClicked" @vuetable:pagination-data="onPaginationData">
+                <vuetable
+                    ref="vuetable"
+                    :api-url="`${ApiUrl}roles`"
+                    :fields="flds"
+                    pagination-path=""
+                    :css="css.table"
+                    :sort-order="sortOrder"
+                    :multi-sort="true"
+                    :http-fetch="myFetch"
+                    detail-row-component="my-detail-row"
+                    :append-params="moreParams"
+                    @vuetable:cell-clicked="onCellClicked"
+                    @vuetable:pagination-data="onPaginationData"
+                >
                     <div slot="actions-slot" slot-scope="props">
                         <div class="custom-actions">
-                            <button class="btn btn-primary btn-sm" @click="itemAction('edit', props.rowData.id)">
+                            <button
+                                class="btn btn-primary btn-sm"
+                                @click="itemAction('edit', props.rowData.id)"
+                            >
                                 <i class="fa fa-edit" />
                             </button>
-                            <button class="btn btn-primary btn-sm" @click="itemAction('assign', props.rowData.id)">
+                            <button
+                                class="btn btn-primary btn-sm"
+                                @click="itemAction('assign', props.rowData.id)"
+                            >
                                 <i class="fa fa-edit" />
                             </button>
-                            <button class="btn btn-primary btn-sm" @click="deleteItem(props.rowData.id)">
+                            <button
+                                class="btn btn-primary btn-sm"
+                                @click="deleteItem(props.rowData.id)"
+                            >
                                 <i class="fa fa-trash" />
                             </button>
                         </div>
                     </div>
                 </vuetable>
                 <div class="vuetable-pagination">
-                    <vuetable-pagination-info ref="paginationInfo" info-class="pagination-info" />
-                    <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage" />
+                    <vuetable-pagination-info
+                        ref="paginationInfo"
+                        info-class="pagination-info"
+                    />
+                    <vuetable-pagination
+                        ref="pagination"
+                        :css="css.pagination"
+                        @vuetable-pagination:change-page="onChangePage"
+                    />
                 </div>
             </div>
         </div>
@@ -90,7 +133,8 @@
                 ],
                 css: {
                     table: {
-                        tableClass: 'table table-bordered table-striped table-hover',
+                        tableClass:
+                            'table table-bordered table-striped table-hover',
                         ascendingIcon: 'fa fa-chevron-up',
                         descendingIcon: 'fa fa-chevron-down',
                     },
@@ -187,7 +231,9 @@
                 return value, 2
             },
             formatDate(value, fmt = 'D MMM YYYY') {
-                return value == null ? '' : moment(value, 'YYYY-MM-DD').format(fmt)
+                return value == null
+                    ? ''
+                    : moment(value, 'YYYY-MM-DD').format(fmt)
             },
             onPaginationData(paginationData) {
                 this.$refs.pagination.setPaginationData(paginationData)

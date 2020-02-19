@@ -7,5 +7,5 @@
 	"useTabs":  false,
 	"htmlWhitespaceSensitivity": "ignore",
 	"vueIndentScriptAndStyle": true,
-	"printWidth": 170
+	"printWidth": 80
 }
