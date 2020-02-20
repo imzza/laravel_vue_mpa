@@ -44,8 +44,10 @@ Vue.component(
     'roles-and-permissions-component',
     () => import('./components/RolesAndPermissions/Index.vue')
 )
-// Dynamic Imports
 Vue.component('v-button', () => import('./components/Button.vue'));
+
+Vue.component('test-component', () => import('./components/Test/Index.vue'));
+
 
 // Vue.component('v-button', require('./components/Button.vue'))
 

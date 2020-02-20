@@ -39,6 +39,6 @@ class HomeController extends Controller {
     }
 
     public function test() {
-        return 'Test Route';
+        return view('test');
     }
 }

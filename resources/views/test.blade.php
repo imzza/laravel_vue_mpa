@@ -3,16 +3,15 @@
 <main>
     <section class="gray-bar">
         <div class="container">
-            {{-- <mian-component :sdata="{{ $users }}"></mian-component> --}}
+
              <div class="content">
                 <div class="title m-b-md">
-                    Admin Dashboard
+                    {{-- :sdata="{{ $users }}" --}}
+                    <test-component ></test-component>
                 </div>
             </div>
         </div>
     </section>
 </main>
 @stop
-
-
 
