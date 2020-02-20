@@ -37,10 +37,11 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
                                 </li>
-
+                                @can('role_and_permissions')
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url('/roles_and_permissions') }}">Roles And Permissions <span class="sr-only"></span></a>
                                 </li>
+                                @endcan
                                 @can('testing')
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('/test') }}">Testing <span class="sr-only">(current)</span></a>

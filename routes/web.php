@@ -11,7 +11,7 @@ Auth::routes();
 // });
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/test/{any?}', 'HomeController@test')->where('any', '.*');
-    Route::get('/roles_and_permissions/{any?}', 'RolesAndPermissionsController@index')->where('any', '.*');
+    Route::get('/test/{any?}', 'HomeController@test')->where('any', '.*')->middleware(['permission:testing']);
+    Route::get('/roles_and_permissions/{any?}', 'RolesAndPermissionsController@index')->where('any', '.*')->middleware(['role_or_permission:SUP|role_and_permissions']);
     Route::get('/{any?}', 'HomeController@index')->where('any', '.*');
 });
