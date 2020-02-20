@@ -31,7 +31,7 @@ window.axios.interceptors.request.use(request => {
     return request
 })
 
-// Response interceptor
+
 window.axios.interceptors.response.use(
     response => response,
     error => {

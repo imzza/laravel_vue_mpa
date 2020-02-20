@@ -47,7 +47,7 @@ class RolesAndPermissionsController extends Controller
     public function storeRole(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:roles,name',
             'rolename' => 'required|min:3',
             'roledescription' => 'required',
         ]);
@@ -66,7 +66,7 @@ class RolesAndPermissionsController extends Controller
     public function storePermission(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:permissions,name',
             'permissionkey' => 'required',
             'permissiontype' => 'required',
         ]);
@@ -142,8 +142,8 @@ class RolesAndPermissionsController extends Controller
     public function updatePermission(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'permissionkey' => 'required|unique:permissions,key,'.$id,
+            'name' => 'required|unique:permissions,name,'.$id,
+            'permissionkey' => 'required',
             'permissiontype' => 'required'
         ]);
         $updatePermissionData = array(

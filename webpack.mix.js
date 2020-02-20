@@ -10,13 +10,6 @@ mix.js('resources/js/app.js', './public/dist/js')
 mix.setPublicPath('./')
 mix.setResourceRoot('/laravel_vue_mpa/');
 
-
-if (mix.inProduction()) {
-    mix.version()
-} else {
-    mix.sourceMaps()
-}
-
 mix.webpackConfig({
     plugins: [
         // new BundleAnalyzerPlugin()
@@ -33,6 +26,13 @@ mix.webpackConfig({
         chunkFilename: 'public/dist/js/[name].[chunkhash].js',
     },
 })
+
+
+if (mix.inProduction()) {
+    mix.version()
+} else {
+    mix.sourceMaps()
+}
 
 mix.then(() => {
     if (!mix.config.hmr) {
