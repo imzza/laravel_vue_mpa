@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -12,10 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
-
         \DB::table('users')->delete();
-
         \DB::table('users')->insert(array (
             0 =>
             array (
@@ -46,7 +42,5 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2019-11-01 18:18:25',
             ),
         ));
-
-
     }
 }
