@@ -1,4 +1,4 @@
-##Laravel VueJs Multi Page Starter Kit
+##Techleadz Laravel VueJs Multi Page Starter Kit
 
 ### Laravel Mix Configuration
 
@@ -15,78 +15,22 @@ Npm: **npm install**
 
 Now update the database settings in the .env file create a databse using navicate/phpmyadmin and update the APP_URL for correct paths.
 
-Now run **php artisan migrate** to generate table schemas.
-
-### Install Laravel Passport
-Now install laravel passoprt by running **php artisan passport:install** this will generate passport clients.
-
-#Laravel Passport Keys
-Run php artisan passport:install to generate passport keys
-
+Now run **php artisan migrate**  and **php artisan db:seed** to generate table schemas ans dumy data.
+**php artisan migrate** to generate table schemas.
 
 ### Run Application
 
-Now run **npm run watch** for compiling vuejs files and visite your broser and check all up and running.
+Now run **npm run watch** for compiling vuejs files and visite check your laravel application on Xampp on localhost/appname/
 
+### Demo User Accounts
+User Account: 
+Email: test@test.com
+Password: password
+
+Admin Account:
+Email: admin@test.com
+Password: password
 
 ## License
 
 The Starter Kit is Designed and developed by Techleadz
-
-
-Package Control Messages
-========================
-
-GitGutter
----------
-
-  1.11.0:
-  =======
-  
-    This release drops support for ST2 and ST3 before build 3176.
-  
-    The release 1.10.3 was archived and will be available for older releases
-    of Sublime Text, but it won't receive any updates anymore.
-  
-    The main functional change which comes with this release is a dedicated
-    worker thread to run all git commands in. This change makes sure not to
-    cause GUI locks if a git command takes a little longer.
-  
-    ---------------------------------------------------------------------------
-  
-     C H A N G E L O G
-  
-    Enhancement:
-     - Use dedicated worker thread for async tasks
-     - Better submodule reloading
-  
-    Internal:
-     - Drop support for Sublime Text ST2 and ST3 pre-releases
-  
-  
-  💛 Git Gutter? Want to support development?
-  
-  I've teamed up with Wes Bos to offer the following discounts:
-  
-  +------------------------------------------------+
-  |                                                |
-  |   Use the coupon code GITGUTTER for $10 off    |
-  |                                                |
-  +------------------------------------------------+
-  
-  🏅 ⭐ ES6 ⭐
-  
-  👉 ES6.io/friend/GITGUTTER
-  
-  🏅 ⭐ Sublime Text Book ⭐
-  
-  👉 SublimeTextBook.com/friend/GITGUTTER
-  
-  🏅 ⭐ React For Beginners ⭐
-  
-  👉 ReactForBeginners.com/friend/GITGUTTER
-  
-  
-  Join 15,000 other developers already learning with Wes Bos.
-  
-  These are fantastic resources - 100% money back guarantee! 🌟

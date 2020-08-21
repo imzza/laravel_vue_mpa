@@ -35,7 +35,7 @@
                         <ul class="navbar-nav mr-auto">
                             @auth
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="{{ url('/') }}">Students <span class="sr-only">(current)</span></a>
                                 </li>
                                 @can('role_and_permissions')
                                 <li class="nav-item active">

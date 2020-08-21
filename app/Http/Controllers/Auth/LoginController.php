@@ -41,10 +41,10 @@ class LoginController extends Controller {
 
 
     protected function authenticated(Request $request, $user) {
-       if ($user->hasAnyRole(['SUP']) ) {
+        if ($user->hasAnyRole(['SUP']) ) {
             return redirect()->route('admin.index');
         }
-         return redirect('/');
+        return redirect('/');
     }
 
     protected function redirectTo() {
