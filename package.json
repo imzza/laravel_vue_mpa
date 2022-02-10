@@ -28,7 +28,7 @@
 		"imagemin": "^6.1.0",
 		"laravel-mix": "^3.0.0",
 		"laravel-mix-versionhash": "^1.0.7",
-		"node-sass": "^4.14.1",
+		"node-sass": "^7.0.0",
 		"prettier": "^1.19.1",
 		"purify-css": "^1.2.5",
 		"purifycss-webpack": "^0.7.0",
